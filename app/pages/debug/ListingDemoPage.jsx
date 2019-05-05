@@ -38,6 +38,7 @@ export class ListingDebugPage extends React.Component {
             day: orderedDaysOfTheWeek[i],
             opens_at: times[0],
             closes_at: times[1],
+            id: i,
           });
         });
       });

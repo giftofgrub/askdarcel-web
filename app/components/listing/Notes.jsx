@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 export default function Notes(props) {
-  return (
+  return props.notes && (
     <section
       className="service--section"
       id={props.id}

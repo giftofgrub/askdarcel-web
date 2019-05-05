@@ -26,7 +26,7 @@ export default function DetailedHours(props) {
     }
     return null;
   });
-  return (
+  return hoursList.length > 0 && (
     <span className="weekly-hours-list">
       {hoursList}
     </span>
