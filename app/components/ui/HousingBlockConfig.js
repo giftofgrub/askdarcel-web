@@ -1,0 +1,29 @@
+const HousingBlockConfig = {
+  TITLE: {
+    BEFORE_BLUE_WORD: 'Discover',
+    BLUE_WORD: 'Housing',
+    AFTER_BLUE_WORD: 'resources',
+  },
+  CARDS: [
+    {
+      title: 'Housing Advocacy',
+      content: 'Eviction defense, housing help, homeownership',
+      query: 'Housing+Law',
+      imgClass: 'legal-block-housing',
+    },
+    {
+      title: 'Immigration',
+      content: 'Asylum, SIJS, DACA, T-Visas, U-Visas, VAWA',
+      query: 'Immigration',
+      imgClass: 'legal-block-immigration',
+    },
+    {
+      title: 'Family & Relationships',
+      content: 'Divorce, custody, guardianship, restraining order, T-Visas, etc.',
+      query: 'Family+Law',
+      imgClass: 'legal-block-family',
+    },
+  ],
+};
+
+export default HousingBlockConfig;
