@@ -21,7 +21,6 @@ const history = syncHistoryWithStore(browserHistory, store);
 const googleAnalyticsId = (NODE_ENV === 'production' || window.location.host === 'www.askdarcel.org') ? 'UA-116318550-1' : 'UA-116318550-2';
 
 ReactGA.initialize(googleAnalyticsId);
-ReactGA.pageview(loc.pathname);
 history.listen(loc => {
   const page = loc.pathname + loc.search;
   ReactGA.set({ page });
