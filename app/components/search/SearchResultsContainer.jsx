@@ -29,6 +29,7 @@ const searchResultsContainer = connectStateResults(
               page={searchResults.page}
               hitsPerPage={searchResults.hitsPerPage}
             />
+            {/*
             <div className="add-resource">
               <h4>Can&apos;t find the organization you&apos;re looking for? </h4>
               <h3 className="entry-headline">
@@ -39,6 +40,7 @@ const searchResultsContainer = connectStateResults(
                 </Link>
               </h3>
             </div>
+            */}
           </div>
           <SearchMap hits={searchResults.hits} />
         </div>
