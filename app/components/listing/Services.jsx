@@ -130,7 +130,7 @@ Email:
         )}
         {website && (
           <p>
-Website:
+Website:&nbsp
             <a href={website}>{website}</a>
           </p>
         )}
