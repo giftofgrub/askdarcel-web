@@ -15,7 +15,9 @@ class LandingPageResourceBlock extends Component {
               {this.props.config.TITLE.BEFORE_BLUE_WORD}
               <span className="blue-word">
                 {' '}
+                <a href={url}>
                 {this.props.config.TITLE.BLUE_WORD}
+                </a>
                 {' '}
               </span>
               {this.props.config.TITLE.AFTER_BLUE_WORD}
