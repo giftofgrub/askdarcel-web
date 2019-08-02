@@ -12,16 +12,15 @@ const initialState = {
 
 export function REDUCER(state = initialState, action) {
   switch (action.type) {
-  case `${ACTIONS.GET_RESOURCE}_${PENDING}`:
+  case `${ACTIONS.GET_RESOURCE}_${'PENDING'}`:
 
-    console.log({ actionPending: action });
+    console.log("pending",{ actionPending: action });
     return state;
-  case `${ACTIONS.GET_RESOURCE}_${FULFILLED}`:
-    console.log({ actionFulfilled: action });
-    // return { ...state, resource: action.payload};
-    return state
-  case `${ACTIONS.GET_RESOURCE}_${REJECTED}`:
-    console.log({ actionRejected: action });
+  case `${ACTIONS.GET_RESOURCE}_${'FULFILLED'}`:
+  console.log("fulfilled",{ actionFulfilled: action.payload.data});
+  return { ...state, resource: action.payload.data};
+  case `${ACTIONS.GET_RESOURCE}_${'REJECTED'}`:
+    console.log("reject",{ actionRejected: action });
     // return { ...state, error: action.payload };
     return state
 
@@ -33,7 +32,6 @@ export function REDUCER(state = initialState, action) {
 export function getResourceAction(id) {
   return {
     type: ACTIONS.GET_RESOURCE,
-    // payload: api.getResource(id)
-    payload: null
+    payload: getResource(id)
   };
 }

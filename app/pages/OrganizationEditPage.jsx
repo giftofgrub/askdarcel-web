@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter, browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+
 import _ from 'lodash';
 
 import { Loader } from 'components/ui';
@@ -12,6 +14,7 @@ import EditSchedule from '../components/edit/EditSchedule';
 import EditPhones from '../components/edit/EditPhones';
 import EditSidebar from '../components/edit/EditSidebar';
 import * as dataService from '../utils/DataService';
+import { Resource } from '../models';
 
 import { withPopUpMessages } from '../actions/popUpMessageActions';
 
@@ -344,7 +347,14 @@ class OrganizationEditPage extends React.Component {
     );
   }
 
+
+
+
+
+
+
   componentDidMount() {
+    const { setResource } = this.props;
     const { location: { query, pathname } } = this.props;
     const splitPath = pathname.split('/');
     window.addEventListener('beforeunload', this.keepOnPage);
@@ -355,11 +365,26 @@ class OrganizationEditPage extends React.Component {
     }
     const resourceID = query.resourceid;
     if (resourceID) {
-      const url = `/api/resources/${resourceID}`;
-      fetch(url).then(r => r.json())
-        .then(data => this.handleAPIGetResource(data.resource));
+      console.log("testing")
+      console.log("testme",setResource(resourceID))
+
+      setResource(resourceID)
+        .then(data => this.handleAPIGetResource(data))
+
+      // const url = `/api/resources/${resourceID}`;
+      // fetch(url).then(r => r.json())
+      //   .then(data => this.handleAPIGetResource(data.resource));
+
     }
   }
+
+
+
+
+
+
+
+
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.keepOnPage);
@@ -899,4 +924,21 @@ OrganizationEditPage.propTypes = {
   showPopUpMessage: PropTypes.func.isRequired,
 };
 
-export default withRouter(withPopUpMessages(OrganizationEditPage));
+
+
+function mapStateToProps({resource}) {
+  return {
+    resource: resource,
+  };
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResource: id => dispatch(Resource.getResourceAction(id)),
+  };
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(withPopUpMessages(OrganizationEditPage))
+);
