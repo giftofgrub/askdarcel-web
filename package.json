@@ -41,6 +41,7 @@
     "react-tippy": "^1.2.2",
     "redux": "^3.6.0",
     "redux-immutable-state-invariant": "^1.2.4",
+    "redux-promise-middleware": "^6.1.1",
     "redux-thunk": "^2.1.0",
     "whatwg-fetch": "^2.0.1"
   },
@@ -52,11 +53,8 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.4",
     "axios": "^0.16.2",
-<<<<<<< HEAD
     "axios-mock-adapter": "^1.16.0",
     "babel-core": "^6.9.1",
-=======
->>>>>>> 140756e9cf717087fcbc039870366e1093eb1dfa
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "chai": "^4.1.2",
