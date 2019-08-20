@@ -6,6 +6,7 @@ export const eligibilitiesMapping = {
   'Re-Entry': ['Re-Entry', 'In Jail'],
   'Seniors (55+ years old)': ['Seniors (55+ years old)'],
   'Transitional Aged Youth': ['Transitional Aged Youth', 'Teens (13-19 years old)'],
+  'Transition Aged Youth': ['Transition Aged Youth', 'Teens (13-19 years old)'],
   'Trauma Survivors': ['Trauma Survivors', 'Abuse or Neglect Survivors', 'Domestic Violence Survivors', 'PTSD'],
   Veterans: ['Veterans'],
   Immigrants: ['Immigrants', 'Undocumented'],
