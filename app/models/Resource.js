@@ -7,31 +7,46 @@ export const ACTIONS = {
 };
 
 const initialState = {
+  isPending: false,
   resource: null,
+  error: {}
 };
+
 
 export function REDUCER(state = initialState, action) {
   switch (action.type) {
-  case `${ACTIONS.GET_RESOURCE}_${'PENDING'}`:
+    case `${ACTIONS.GET_RESOURCE}_${'PENDING'}`:
+      return {
+        ...state,
+        isPending: true,
+      }
 
-    console.log("pending",{ actionPending: action });
-    return state;
-  case `${ACTIONS.GET_RESOURCE}_${'FULFILLED'}`:
-  console.log("fulfilled",{ actionFulfilled: action.payload.data});
-  return { ...state, resource: action.payload.data};
-  case `${ACTIONS.GET_RESOURCE}_${'REJECTED'}`:
-    console.log("reject",{ actionRejected: action });
-    // return { ...state, error: action.payload };
-    return state
+    case `${ACTIONS.GET_RESOURCE}_${'FULFILLED'}`:
+      console.log("fulfilled action",action.payload.data);
+      return {
+        ...state,
+        isPending: false,
+        resource: action.payload.data.resource,
+      };
 
-  default:
-    return state;
+    case `${ACTIONS.GET_RESOURCE}_${'REJECTED'}`:
+      return {
+        ...state,
+        isPending: false,
+        error: action.payload
+      }
+
+    default:
+      return state;
   }
 }
 
-export function getResourceAction(id) {
+export const getResourceAction = (id) => {
   return {
     type: ACTIONS.GET_RESOURCE,
-    payload: getResource(id)
-  };
+    async payload () {
+      const resourceData = await getResource(id)
+      return resourceData
+    }
+  }
 }
