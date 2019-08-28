@@ -50,9 +50,7 @@ export class HomePage extends React.Component {
         </div>
         <LandingPageEligibilityBlock eligibilities={eligibilities} />
         <LandingPageResourceBlock config={HousingBlockConfig} />
-        <LandingPageResourceBlock config={LegalBlockConfig}>
-          <div className="legal-block__resources-hammer" />
-        </LandingPageResourceBlock>
+        <LandingPageResourceBlock config={LegalBlockConfig} />
         <LandingPageResourceBlock config={BasicNeedsBlockConfig} />
         <LandingPageResourceBlock config={YouthHomelessnessBlockConfig} />
         <Partners />
