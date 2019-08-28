@@ -16,7 +16,9 @@ const STATUS_CAUTION = 'status-amber';
  */
 const getRelativeOpeningTime = (recurringSchedule, currentDate) => {
   if (!recurringSchedule) return { text: '', classes: '' };
-
+  if (!recurringSchedule.hoursKnown) {
+    return { text: 'Call for Hours', classes: STATUS_CAUTION };
+  }
   if (recurringSchedule.isOpen24_7()) {
     return { text: 'Open 24/7', classes: STATUS_OPEN };
   }
