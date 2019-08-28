@@ -13,11 +13,11 @@
 }
 .filters-icon {
   height: 15px;
-  padding: 0px 3px 3px 0px;
+  padding: 0 3px 3px 0;
 }
 .refine-btn {
   border: none;
-  padding: 5px 10px 5px 0px;
+  padding: 5px 10px 5px 0;
   color: #276ce5;
   font-weight: 400;
   font-size: 15px;
@@ -26,9 +26,9 @@
   font-weight: 500;
 }
 .custom-refinement {
-  height: 0px;
+  height: 0;
   display: block;
-  margin: 0px;
+  margin: 0;
   opacity: 0;
 }
 .custom-refinement.active {
@@ -61,10 +61,10 @@
   }
 }
 .refine-li {
-  padding: 5px 0px;
+  padding: 5px 0;
   color: #666666;
   @media screen and (max-width: 1200px ) {
-    padding: 10px 0px;
+    padding: 10px 0;
   }
   &.refine-li-disabled {
     color: #cecece;

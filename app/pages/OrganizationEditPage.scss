@@ -85,7 +85,7 @@
   &--item {
     margin: 0 calc-em(30px) calc-em(20px) 0;
     @media screen and (max-width: 900px ) {
-      margin: 0 0 20px 0;
+      margin: 0 0 20px;
     }
 
     &:last-of-type {
