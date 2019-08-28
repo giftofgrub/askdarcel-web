@@ -75,6 +75,7 @@ class ServicePage extends React.Component {
     const { resource, program, recurringSchedule } = service;
     const details = this.generateDetailsRows();
     const locations = getServiceLocations(service, resource, recurringSchedule);
+    console.log(locations);
     return (
       <div>
         <Helmet>

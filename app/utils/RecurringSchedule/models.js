@@ -217,9 +217,12 @@ export class RecurringSchedule {
    *
    * @param intervals {Array<RecurringInterval>} - The list of
    *  RecurringIntervals comprising the schedule.
+   * @param hoursKnown {bool} - Whether the UI indicates to
+   *  call to verify hours.
    */
-  constructor({ intervals = [] }) {
+  constructor({ intervals = [], hoursKnown = true }) {
     this.intervals = sortIntervals(intervals);
+    this.hoursKnown = hoursKnown;
   }
 
   /**

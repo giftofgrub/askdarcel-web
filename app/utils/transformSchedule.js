@@ -63,6 +63,7 @@ export const parseAPISchedule = apiSchedule => new RecurringSchedule({
   intervals: apiSchedule.schedule_days
     .map(apiScheduleDay => parseAPIScheduleDay(apiScheduleDay))
     .filter(interval => interval),
+  hoursKnown: apiSchedule.hours_known,
 });
 
 export const parseAlgoliaSchedule = algoliaSchedule => new RecurringSchedule({
