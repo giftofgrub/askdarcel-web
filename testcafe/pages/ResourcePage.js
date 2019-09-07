@@ -6,7 +6,7 @@ export default class ResourcePage {
     const baseSelectorName = 'OrganizationListingPage';
     const baseSelector = ReactSelector(baseSelectorName);
     this.address = ReactSelector(`${baseSelectorName} AddressInfo`);
-    this.description = baseSelector.find('.org--main--header--description');
+    this.description = baseSelector.find('.org--main--header--description div');
     this.editButton = baseSelector.find('.action-sidebar--edit');
     this.email = baseSelector.findReact('Email');
     // TODO: Can't use nested React component name PhoneNumber because it is
