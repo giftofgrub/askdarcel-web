@@ -25,7 +25,7 @@ test('Add new resource, basic', async t => {
     website: 'https://theBestResource.best',
     email: 'theBestResource1337@aol.com',
     description: 'A description of this resource',
-    notes: 'A new note about this resource',
+    note: 'A new note about this resource',
   };
 
   // Add name
@@ -41,16 +41,26 @@ test('Add new resource, basic', async t => {
     t,
   );
 
+  // Add phone
+  await t.click(newResourcePage.addPhoneButton);
+  const phone = NewResourcePage.getPhone(-1);
+  await t
+    .typeText(phone.number, data.phone.number, { replace: true })
+    .typeText(phone.serviceType, data.phone.type, { replace: true });
+
   // Add website
   await t.typeText(newResourcePage.website, data.website, { replace: true });
 
   // Add email
-  // For some reason, testCafe puts the email in backwards
-  const reversedEmail = data.email.split('').reverse().join('');
-  await t.typeText(newResourcePage.email, reversedEmail, { replace: true });
+  await t.typeText(newResourcePage.email, data.email, { replace: true });
 
   // Add description
   await t.typeText(newResourcePage.description, data.description, { replace: true });
+
+  // Add note
+  await t.click(newResourcePage.addNoteButton);
+  const note = NewResourcePage.getResourceNote(-1);
+  await t.typeText(note.content, data.note, { replace: true });
 
   function dialogHandler(type, text) {
     if (!text.includes('Resource successfuly created')) {
@@ -75,6 +85,11 @@ test('Add new resource, basic', async t => {
   await t.expect(resourcePage.address.textContent).contains(data.address.stateOrProvince);
   await t.expect(resourcePage.address.textContent).contains(data.address.postalCode);
 
+  // Ensure resource phone is correct
+  await t
+    .expect(resourcePage.phones.parent().textContent).contains(data.phone.number)
+    .expect(resourcePage.phones.parent().textContent).contains(data.phone.type);
+
   // Ensure resource website is correct
   await t.expect(resourcePage.website.textContent).eql(data.website);
 
@@ -83,4 +98,8 @@ test('Add new resource, basic', async t => {
 
   // Ensure resource description is correct
   await t.expect(resourcePage.description.textContent).eql(data.description);
+
+  // TODO: Uncomment test with the fix of https://github.com/ShelterTechSF/askdarcel-api/issues/449
+  // Ensure resource note is correct
+  // await t.expect(resourcePage.notes.parent().textContent).eql(data.note);
 });
