@@ -62,6 +62,7 @@ test('Add new resource, basic', async t => {
   const note = NewResourcePage.getResourceNote(-1);
   await t.typeText(note.content, data.note, { replace: true });
 
+  // Save data
   function dialogHandler(type, text) {
     if (!text.includes('Resource successfuly created')) {
       throw new Error(`Got unexpected dialog: ${text}`);
@@ -71,6 +72,8 @@ test('Add new resource, basic', async t => {
     .click(newResourcePage.saveButton)
     .setNativeDialogHandler(null);
   const dialogHistory = await t.getNativeDialogHistory();
+
+  // Tests
   await t.expect(dialogHistory.length).eql(1);
 
   // Get resource page
