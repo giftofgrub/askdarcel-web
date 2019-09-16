@@ -523,7 +523,8 @@ class OrganizationEditPage extends React.Component {
       });
   }
 
-  handleSubmit() {
+    handleSubmit() {
+        // Location of submit valition change should be here
     const { showPopUpMessage } = this.props;
     this.setState({ submitting: true });
     const {
