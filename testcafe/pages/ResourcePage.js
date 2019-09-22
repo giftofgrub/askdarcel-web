@@ -19,6 +19,7 @@ export default class ResourcePage {
     this.noteContainer = baseSelector.findReact('Notes');
     this.notes = baseSelector.find('#notes .service--section--list li');
     this.services = baseSelector.find('#services.service--section .service');
+    this.servicesHeader = this.services.find('a');
     this.website = baseSelector.findReact('Website');
   }
 

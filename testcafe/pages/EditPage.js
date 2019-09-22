@@ -1,3 +1,4 @@
+import { Selector } from 'testcafe';
 import { ReactSelector } from 'testcafe-react-selectors';
 
 class EditAddress {
@@ -69,6 +70,22 @@ class EditService {
   }
 }
 
+class NewService {
+  constructor() {
+    const baseSelector = Selector('.edit--service--list .edit--section:last-child');
+    this.name = baseSelector.find('.edit--section--list--item:first-child input');
+    this.nickname = baseSelector.find(`[placeholder="What it's known as in the community"]`);
+    this.email = baseSelector.find('.email input');
+    this.description = baseSelector.find(`[placeholder="Describe what you'll receive from this service in a few sentences."]`);
+    this.applicationProcess = baseSelector.find(`[placeholder="How do you apply for this service?"]`);
+    this.requiredDocs = baseSelector.find(`[placeholder="What documents do you need to bring to apply?"]`);
+    this.interpretationServices = baseSelector.find(`[placeholder="What interpretation services do they offer?"]`);
+    this.cost = baseSelector.find(`[placeholder="How much does this service cost?"]`);
+    this.waitTime = baseSelector.find(`[placeholder="Is there a waiting list or wait time?"]`);
+    this.website = baseSelector.find(`[placeholder="http://"]`);
+  }
+}
+
 export default class EditPage {
   constructor() {
     const baseSelectorName = 'OrganizationEditPage';
@@ -86,7 +103,7 @@ export default class EditPage {
     this.addServiceButton = baseSelector.find('.new-service');
     this.removeFirstServiceButton = baseSelector.find('.remove-item:nth-last-of-type(1)');
     this.services = baseSelector.find('.edit--service');
-    this.newServiceName = baseSelector.find('.edit--service--list .edit--section:last-child .edit--section--list--item:first-child input');
+    this.newService = new NewService();
   }
 
   static getPhone(index) {

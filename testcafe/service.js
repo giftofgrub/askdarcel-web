@@ -4,22 +4,12 @@ import EditResourcePage from './pages/EditResourcePage';
 const servicePage = new ServicePage();
 const editResourcePage = new EditResourcePage();
 
-// Define service information to test
-// Tests depend on service information
-// TODO: Create a new service and add all this information in the future
-//  to not rely on hardcoded data
-const serviceData = {
-  id: 5,
-  name: 'Mental Health Services',
-  description: 'Drop in MTuThF 8:30am-10:00am or W 1pm-2:30pm. Psychiatric medication management, counseling, clinical case management & support group. Filipino counseling\nteam. Citywide, but priority given to SOMA, Western Addition, & Tenderloin. ',
-  note: '$0-full bill. English, Spanish, Tagalog.',
-  phone: '(415) 836-1700 ',
-  address: '760 Harrison',
-};
-
+// Define service id to navigate to
+// Tests depend on service id
+const serviceId = 5;
 fixture`Service Page`
   // TODO: Dynamically find a service to test against
-  .page(servicePage.url(serviceData.id));
+  .page(servicePage.url(serviceId));
 
 const modifySheduleTime = async (t, action = 'add') => {
   // Click edit service button
@@ -27,7 +17,7 @@ const modifySheduleTime = async (t, action = 'add') => {
     .click(servicePage.editButton);
 
   // Get the correct service and it's schedule
-  const service = EditResourcePage.getService(serviceData.id);
+  const service = EditResourcePage.getService(serviceId);
   const { schedule } = service;
 
   if (action === 'add') {
@@ -46,52 +36,29 @@ const modifySheduleTime = async (t, action = 'add') => {
 
 test('Confirm Page Loads with Information', async t => {
   await t
-    // Wait for page to load
-    .hover(servicePage.editButton)
-
-    // Name element should exist
+  // Name element should exist
     .expect(servicePage.name.exists)
     .ok()
 
-    // Description element should exist
+  // Description element should exist
     .expect(servicePage.description.exists)
     .ok()
 
-    // Details element should exist
+  // Details element should exist
     .expect(servicePage.details.exists)
     .ok()
 
-    // Edit button should exist
+  // Edit button should exist
     .expect(servicePage.editButton.exists)
     .ok()
 
-    // Print button should exist
+  // Print button should exist
     .expect(servicePage.printButton.exists)
     .ok()
 
-    // Directions button should exist
+  // Directions button should exist
     .expect(servicePage.directionsButton.exists)
     .ok();
-});
-
-test('Confirm Page Loads with Correct Name', async t => {
-  await t.expect(servicePage.name.textContent).eql(serviceData.name);
-});
-
-test('Confirm Page Loads with Correct Description', async t => {
-  await t.expect(servicePage.description.textContent).eql(serviceData.description);
-});
-
-test('Confirm Page Loads with Correct Phone Number', async t => {
-  await t.expect(servicePage.phone.textContent).eql(serviceData.phone);
-});
-
-test('Confirm Page Loads with Correct Note', async t => {
-  await t.expect(servicePage.note.textContent).eql(serviceData.note);
-});
-
-test('Confirm Page Loads with Correct Address', async t => {
-  await t.expect(servicePage.address.textContent).eql(serviceData.address);
 });
 
 test('Confirm Service Schedule Day Can Be Added', async t => {
@@ -104,7 +71,7 @@ test('Confirm Service Schedule Day Can Be Added', async t => {
   await modifySheduleTime(t);
 
   await t
-    .navigateTo(servicePage.url(serviceData.id))
+    .navigateTo(servicePage.url(serviceId))
     .hover(servicePage.editButton)
     .expect(servicePage.schedule.count)
     .eql(originalScheduleDayCount + 1);
@@ -121,13 +88,13 @@ test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
   await modifySheduleTime(t);
 
   await t
-    .navigateTo(servicePage.url(serviceData.id))
+    .navigateTo(servicePage.url(serviceId))
     .hover(servicePage.editButton);
 
   await modifySheduleTime(t, 'remove');
 
   await t
-    .navigateTo(servicePage.url(serviceData.id))
+    .navigateTo(servicePage.url(serviceId))
     .hover(servicePage.editButton)
     .expect(servicePage.schedule.count)
     .eql(originalScheduleDayCount - 1);
