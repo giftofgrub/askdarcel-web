@@ -211,13 +211,16 @@ test('Add new service', async t => {
     NICKNAME: 'Best Service',
     EMAIL: '1800bestservice@best.com',
     DESCRIPTION: 'I go here when I want the best best service.',
-    APPLICATION_PROCESS: 'Walk in and ask for assistance',
+    APP_PROCESS: 'Walk in and ask for assistance',
     REQ_DOCS: 'No ID required',
-    INTERPRETATION_SERVICES: 'ASL provided',
+    INTERP_SERVICES: 'ASL provided',
     COST: 'Free',
     WAIT_TIME: 'N/A',
     WEBSITE: 'https://bestservice.com',
   };
+
+  // Wait for page to load by using hover action.
+  await t.hover(resourcePage.editButton);
 
   // Navigate to edit page
   await resourcePage.clickEditButton(t);
@@ -245,17 +248,30 @@ test('Add new service', async t => {
   await t.eval(() => window.scrollTo(0, 0));
 
   // Fill out new service information
+  const {
+    name,
+    nickname,
+    email,
+    description,
+    appProcess,
+    requiredDocs,
+    interpServices,
+    cost,
+    waitTime,
+    website,
+  } = editResourcePage.newService;
+
   await t
-    .typeText(editResourcePage.newService.name, SERVICE_DATA.NAME, { replace: true })
-    .typeText(editResourcePage.newService.nickname, SERVICE_DATA.NICKNAME, { replace: true })
-    .typeText(editResourcePage.newService.email, SERVICE_DATA.EMAIL, { replace: true })
-    .typeText(editResourcePage.newService.description, SERVICE_DATA.DESCRIPTION, { replace: true })
-    .typeText(editResourcePage.newService.applicationProcess, SERVICE_DATA.APPLICATION_PROCESS, { replace: true })
-    .typeText(editResourcePage.newService.requiredDocs, SERVICE_DATA.REQ_DOCS, { replace: true })
-    .typeText(editResourcePage.newService.interpretationServices, SERVICE_DATA.INTERPRETATION_SERVICES, { replace: true })
-    .typeText(editResourcePage.newService.cost, SERVICE_DATA.COST, { replace: true })
-    .typeText(editResourcePage.newService.waitTime, SERVICE_DATA.WAIT_TIME, { replace: true })
-    .typeText(editResourcePage.newService.website, SERVICE_DATA.WEBSITE, { replace: true })
+    .typeText(name, SERVICE_DATA.NAME, { replace: true })
+    .typeText(nickname, SERVICE_DATA.NICKNAME, { replace: true })
+    .typeText(email, SERVICE_DATA.EMAIL, { replace: true })
+    .typeText(description, SERVICE_DATA.DESCRIPTION, { replace: true })
+    .typeText(appProcess, SERVICE_DATA.APP_PROCESS, { replace: true })
+    .typeText(requiredDocs, SERVICE_DATA.REQ_DOCS, { replace: true })
+    .typeText(interpServices, SERVICE_DATA.INTERP_SERVICES, { replace: true })
+    .typeText(cost, SERVICE_DATA.COST, { replace: true })
+    .typeText(waitTime, SERVICE_DATA.WAIT_TIME, { replace: true })
+    .typeText(website, SERVICE_DATA.WEBSITE, { replace: true })
     .click(editResourcePage.saveButton);
 
   // New service should exist in services list
@@ -267,14 +283,15 @@ test('Add new service', async t => {
   await t
     .click(resourcePage.servicesHeader);
 
+  // Test services page
   // Name should be displayed
   await t.expect(servicePage.name.textContent).eql(SERVICE_DATA.NAME);
   // Email should be displayed
-  // await t.expect(servicePage.email.textContent).eql(SERVICE_DATA.EMAIL);
+  await t.expect(servicePage.email.textContent).eql(SERVICE_DATA.EMAIL);
   // Description should be displayed
   await t.expect(servicePage.description.textContent).eql(SERVICE_DATA.DESCRIPTION);
   // Application process should be displayed
-  await t.expect(servicePage.applicationProcess.textContent).eql(SERVICE_DATA.APPLICATION_PROCESS);
+  await t.expect(servicePage.appProcess.textContent).eql(SERVICE_DATA.APP_PROCESS);
   // Required Documents should be displayed
   await t.expect(servicePage.requiredDocs.textContent).eql(SERVICE_DATA.REQ_DOCS);
   // Cost should be displayed
