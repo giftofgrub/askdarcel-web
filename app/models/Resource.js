@@ -1,10 +1,6 @@
-import { REJECTED, PENDING, FULFILLED } from "redux-promise-middleware";
+import promiseMiddleware from 'redux-promise-middleware';
+import {PENDING, FULFILLED, REJECTED, addRecurSchedToResource} from './utils'
 import { getResource } from '../api/resourceService'
-
-// Actions
-export const ACTIONS = {
-  GET_RESOURCE: 'GET_RESOURCE',
-};
 
 const initialState = {
   isPending: false,
@@ -12,24 +8,27 @@ const initialState = {
   error: {}
 };
 
+export const ACTIONS = {
+  GET_RESOURCE: 'GET_RESOURCE',
+};
 
 export function REDUCER(state = initialState, action) {
   switch (action.type) {
-    case `${ACTIONS.GET_RESOURCE}_${'PENDING'}`:
+    case PENDING(ACTIONS.GET_RESOURCE):
       return {
         ...state,
         isPending: true,
       }
 
-    case `${ACTIONS.GET_RESOURCE}_${'FULFILLED'}`:
-      console.log("fulfilled action",action.payload.data);
+    case FULFILLED(ACTIONS.GET_RESOURCE):
       return {
         ...state,
         isPending: false,
-        resource: action.payload.data.resource,
+        resource: addRecurSchedToResource(action.payload.data.resource) //RENAME FN
       };
 
-    case `${ACTIONS.GET_RESOURCE}_${'REJECTED'}`:
+    case REJECTED(ACTIONS.GET_RESOURCE):
+      console.log("oops")
       return {
         ...state,
         isPending: false,
@@ -41,12 +40,11 @@ export function REDUCER(state = initialState, action) {
   }
 }
 
-export const getResourceAction = (id) => {
+export const getResourceAction = id => {
   return {
     type: ACTIONS.GET_RESOURCE,
     async payload () {
-      const resourceData = await getResource(id)
-      return resourceData
+      return await getResource(id)
     }
   }
 }

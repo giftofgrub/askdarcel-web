@@ -1,12 +1,15 @@
 import axios from 'axios';
 
-// const baseURL = baseURLs[process.env.NODE_ENV];
-const baseURL = '/api';
+const env = process.env.NODE_ENV
+let baseURL = env === 'production' ? 'https://askdarcel.org/' : '/api';
+
 const api = axios.create({
   baseURL,
-  // headers: {
-  //   'Accept': 'application/json',
-  //   'Content-Type': 'application/json',
-  // },
+  timeout: 10000,
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
 });
+
 export default api;

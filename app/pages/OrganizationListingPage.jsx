@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   AddressInfo,
@@ -24,13 +25,11 @@ import Loader from 'components/ui/Loader';
 import * as dataService from '../utils/DataService';
 import { isSFServiceGuideSite } from '../utils/whitelabel';
 
-import { connect } from 'react-redux';
 import { Resource } from '../models';
 
 const getResourceLocation = resource => {
   const { address } = resource;
   if (!address) return null;
-
 
   return {
     id: address.id,
@@ -53,7 +52,7 @@ export class OrganizationListingPage extends React.Component {
     this.loadResourceFromServer();
   }
 
-  loadResourceFromServer() {
+  loadResourceFromServer = async () => {
     const {
       location: {
         query: {
@@ -61,30 +60,15 @@ export class OrganizationListingPage extends React.Component {
         },
       },
     } = this.props;
-
-    // dataService.getResource(id).then(resource => {
-    //   this.setState({ resource });
-    // });
-
-    this.props.setResource(resourceID)
-
-
-
+    await this.props.setResource(id)
   }
 
   verifyResource() {
-    // const {
-    //   resource: {
-    //     id,
-    //   },
-    // } = this.state;
-
     const {
       resource: {
         id,
       },
     } = this.props;
-
 
     const changeRequest = {
       verified_at: new Date().toISOString(),
@@ -99,9 +83,7 @@ export class OrganizationListingPage extends React.Component {
     });
   }
 
-
   render() {
-    // const { resource } = this.state;
     const { resource } = this.props
 
     if (!resource || !window.google) {
@@ -209,7 +191,6 @@ export class OrganizationListingPage extends React.Component {
 }
 
 
-
 OrganizationListingPage.defaultProps = {
   userLocation: null,
 };
@@ -226,18 +207,16 @@ OrganizationListingPage.propTypes = {
 };
 
 
-
 function mapStateToProps({resource}) {
   return {
     resource: resource.resource || {},
   };
-}
-
+};
 
 function mapDispatchToProps(dispatch) {
   return {
     setResource: id => dispatch(Resource.getResourceAction(id)),
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrganizationListingPage);

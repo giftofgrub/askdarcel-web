@@ -7,7 +7,7 @@ import App from './components/App';
 
 import { HomePage } from './pages/HomePage';
 import OrganizationEditPage from './pages/OrganizationEditPage';
-import { OrganizationListingPage } from './pages/OrganizationListingPage';
+import OrganizationListingPage from './pages/OrganizationListingPage';
 import { SearchResultsPage } from './pages/SearchPage';
 import { ServiceListingPage } from './pages/ServiceListingPage';
 
