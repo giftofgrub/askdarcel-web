@@ -37,7 +37,7 @@ const modifySheduleTime = async (t, action = 'add') => {
 test('Confirm Page Loads with Information', async t => {
   await t
   // Name element should exist
-    .expect(servicePage.serviceName.exists)
+    .expect(servicePage.name.exists)
     .ok()
 
   // Description element should exist

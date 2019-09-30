@@ -1,8 +1,10 @@
 import ResourcePage from './pages/ResourcePage';
 import EditResourcePage from './pages/EditResourcePage';
+import ServicePage from './pages/ServicePage';
 
 const resourcePage = new ResourcePage();
 const editResourcePage = new EditResourcePage();
+const servicePage = new ServicePage();
 
 fixture`Edit Resource`
   .page(ResourcePage.url(1));
@@ -204,6 +206,22 @@ test('Delete Resource Note', async t => {
 });
 
 test('Add new service', async t => {
+  const SERVICE_DATA = {
+    NAME: 'Test Service',
+    NICKNAME: 'Best Service',
+    EMAIL: '1800bestservice@best.com',
+    DESCRIPTION: 'I go here when I want the best best service.',
+    APP_PROCESS: 'Walk in and ask for assistance',
+    REQ_DOCS: 'No ID required',
+    INTERP_SERVICES: 'ASL provided',
+    COST: 'Free',
+    WAIT_TIME: 'N/A',
+    WEBSITE: 'https://bestservice.com',
+  };
+
+  // Wait for page to load by using hover action.
+  await t.hover(resourcePage.editButton);
+
   // Navigate to edit page
   await resourcePage.clickEditButton(t);
 
@@ -228,12 +246,58 @@ test('Add new service', async t => {
   // scroll to the top of the page before asking it to enter text into the new
   // service name field so that it scrolls *down*.
   await t.eval(() => window.scrollTo(0, 0));
+
+  // Fill out new service information
+  const {
+    name,
+    nickname,
+    email,
+    description,
+    appProcess,
+    requiredDocs,
+    interpServices,
+    cost,
+    waitTime,
+    website,
+  } = editResourcePage.newService;
+
   await t
-    .typeText(editResourcePage.newServiceName, 'Test Service', { replace: true })
-    .click(editResourcePage.saveButton)
+    .typeText(name, SERVICE_DATA.NAME, { replace: true })
+    .typeText(nickname, SERVICE_DATA.NICKNAME, { replace: true })
+    .typeText(email, SERVICE_DATA.EMAIL, { replace: true })
+    .typeText(description, SERVICE_DATA.DESCRIPTION, { replace: true })
+    .typeText(appProcess, SERVICE_DATA.APP_PROCESS, { replace: true })
+    .typeText(requiredDocs, SERVICE_DATA.REQ_DOCS, { replace: true })
+    .typeText(interpServices, SERVICE_DATA.INTERP_SERVICES, { replace: true })
+    .typeText(cost, SERVICE_DATA.COST, { replace: true })
+    .typeText(waitTime, SERVICE_DATA.WAIT_TIME, { replace: true })
+    .typeText(website, SERVICE_DATA.WEBSITE, { replace: true })
+    .click(editResourcePage.saveButton);
+
+  // New service should exist in services list
+  await t
     .expect(resourcePage.services.count)
     .eql(originalServiceCount + 1);
+
+  // Click on new service to navigate to service page
+  await t
+    .click(resourcePage.servicesHeader);
+
+  // Test services page
+  // Name should be displayed
+  await t.expect(servicePage.name.textContent).eql(SERVICE_DATA.NAME);
+  // Email should be displayed
+  await t.expect(servicePage.email.textContent).eql(SERVICE_DATA.EMAIL);
+  // Description should be displayed
+  await t.expect(servicePage.description.textContent).eql(SERVICE_DATA.DESCRIPTION);
+  // Application process should be displayed
+  await t.expect(servicePage.appProcess.textContent).eql(SERVICE_DATA.APP_PROCESS);
+  // Required Documents should be displayed
+  await t.expect(servicePage.requiredDocs.textContent).eql(SERVICE_DATA.REQ_DOCS);
+  // Cost should be displayed
+  await t.expect(servicePage.cost.textContent).eql(SERVICE_DATA.COST);
 });
+
 
 test('Delete a service', async t => {
   // Wait for page to load before counting services by using hover action.
