@@ -65,7 +65,7 @@ const GuideList = () => (
       <li className={styles.item}>
         <GuideCard
           name="Eviction Prevention"
-          link="https://rachelpoonsiriwong.typeform.com/to/mXv584"
+          link="https://sheltertech.typeform.com/to/i92DO4"
           img={ImgEviction}
           partner="Eviction Defense Collaborative"
           partnerImg={ImgEvictionPartner}
@@ -74,7 +74,7 @@ const GuideList = () => (
       <li className={styles.item}>
         <GuideCard
           name="Affordable Housing"
-          link="https://rachelpoonsiriwong.typeform.com/to/mXv584"
+          link="https://sheltertech.typeform.com/to/w8R0b8"
           img={ImgAffordableHousing}
           partner="Homeownership SF"
           partnerImg={ImgAffordableHousingPartner}
@@ -83,7 +83,7 @@ const GuideList = () => (
       <li className={styles.item}>
         <GuideCard
           name="Youth Homelessness"
-          link="https://rachelpoonsiriwong.typeform.com/to/mXv584"
+          link="https://sheltertech.typeform.com/to/mXv584"
           img={ImgYouthHomelessness}
           partner="Larkin Street Youth Services"
           partnerImg={ImgYouthHomelessnessPartner}
