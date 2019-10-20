@@ -42,7 +42,12 @@ class SearchEntry extends Component {
             </p>
             )}
             <p className="entry-meta">
-              <span>{hit.address && hit.address.address_1 ? hit.address.address_1 : 'No address found'}</span>
+              {type === 'service' && (
+                <span>{hit.addresses && hit.addresses.address_1 ? hit.addresses.address_1 : 'No address found'}</span>
+              )}
+              {type === 'resource' && (
+                <span>{hit.address && hit.address.address_1 ? hit.address.address_1 : 'No address found'}</span>
+              )}
               {recurringSchedule
                   && (
                     <span className="entry-schedule">
