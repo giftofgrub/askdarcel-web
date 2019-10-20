@@ -19,7 +19,18 @@ class ServiceEntry extends Component {
       <Link to={{ pathname: `/services/${hit.service_id}` }}>
         <li className="results-table-entry service-entry">
           <div className="entry-details">
-            <h4 className="entry-headline">{`${hitNumber}. ${hit.name}`}</h4>
+            <div className="entry-header">
+              <h4 className="entry-headline">{`${hitNumber}. ${hit.name}`}</h4>
+              {hit.is_mohcd_funded
+                ? (
+                  <div className="mohcd-funded">
+                    <img src={images.mohcdSeal} alt="MOHCD seal" />
+                    <p>Funded by MOHCD</p>
+                  </div>
+                )
+                : null
+              }
+            </div>
             <p className="entry-meta">
               <Link to={`/organizations/${hit.resource_id}`}>{hit.service_of}</Link>
             </p>
@@ -33,16 +44,6 @@ class ServiceEntry extends Component {
                   )
               }
             </p>
-
-            {hit.is_mohcd_funded
-              ? (
-                <div className="mohcd-funded">
-                  <img src={images.mohcdSeal} alt="MOHCD seal" />
-                  <p>Funded by MOHCD</p>
-                </div>
-              )
-              : null
-            }
             <div className="entry-body">
               <ReactMarkdown className="rendered-markdown service-entry-body" source={description} />
             </div>
