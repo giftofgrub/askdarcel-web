@@ -28,14 +28,12 @@ class SearchEntry extends Component {
           <div className="entry-details">
             <div className="entry-header">
               <h4 className="entry-headline">{`${hitNumber}. ${hit.name}`}</h4>
-              {hit.is_mohcd_funded
-                ? (
-                  <div className="mohcd-funded">
-                    <img src={images.mohcdSeal} alt="MOHCD seal" />
-                    <p>Funded by MOHCD</p>
-                  </div>
-                )
-                : null
+              {hit.is_mohcd_funded && (
+              <div className="mohcd-funded">
+                <img src={images.mohcdSeal} alt="MOHCD seal" />
+                <p>Funded by MOHCD</p>
+              </div>
+              )
               }
             </div>
             {type === 'service' && (
