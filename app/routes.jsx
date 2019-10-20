@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Redirect, Route, IndexRoute } from 'react-router';
 import './utils/google';
 
 import App from './components/App';
@@ -11,8 +11,6 @@ import { OrganizationListingPage } from './pages/OrganizationListingPage';
 import { SearchResultsPage } from './pages/SearchPage';
 import { ServiceListingPage } from './pages/ServiceListingPage';
 
-import { AdminPage } from './pages/admin/Admin';
-import { ChangeRequestsPage } from './pages/admin/ChangeRequests';
 import { PrivacyPolicyPage } from './pages/legal/PrivacyPolicy';
 import { TermsOfServicePage } from './pages/legal/TermsOfService';
 import { AboutPage } from './pages/about/About';
@@ -29,6 +27,11 @@ const redirectToOrganizations = (nextState, replace) => {
   replace(`/organizations/${id}`);
 };
 
+const redirectToOrganizationsEdit = (nextState, replace) => {
+  const { location: { query: { resourceid: id } } } = nextState;
+  replace(`/organizations/${id}/edit`);
+};
+
 // Adapted from
 // https://github.com/ReactTraining/react-router/issues/2019#issuecomment-256591800
 // Note: When we upgrade to react-router 4.x, we should use
@@ -42,20 +45,20 @@ function scrollToTop(prevState, nextState) {
 export default (
   <Route path="/" component={App} onChange={scrollToTop}>
     <IndexRoute component={HomePage} />
-    <Route name="admin" path="/admin" component={AdminPage} />
-    <Route name="changeRequests" path="/admin/changes" component={ChangeRequestsPage} />
+    <Route path="/about" component={AboutPage} />
+    <Route path="/demo/listing" component={ListingDebugPage} />
+    <Route path="/organizations/new" component={OrganizationEditPage} />
     <Route path="/organizations/:id" component={OrganizationListingPage} />
-    <Route name="editResource" path="/resource/edit" component={OrganizationEditPage} />
-    <Route name="newResource" path="/resource/new" component={OrganizationEditPage} />
-    <Route name="privacyPolicy" path="/privacy-policy" component={PrivacyPolicyPage} />
-    <Route name="search" path="/search" component={SearchResultsPage} />
-    <Route name="ServicePage" path="/services/:service" component={ServiceListingPage} />
-    <Route name="termsOfService" path="/terms-of-service" component={TermsOfServicePage} />
-    <Route name="AboutPage" path="/about" component={AboutPage} />
-    <Route name="listingDemo" path="/demo/listing" component={ListingDebugPage} />
+    <Route path="/organizations/:id/edit" component={OrganizationEditPage} />
+    <Route path="/privacy-policy" component={PrivacyPolicyPage} />
+    <Route path="/search" component={SearchResultsPage} />
+    <Route path="/services/:service" component={ServiceListingPage} />
+    <Route path="/terms-of-service" component={TermsOfServicePage} />
 
     {/* Legacy redirects */}
     <Route path="/resource" onEnter={redirectToOrganizations} />
+    <Route path="/resource/edit" onEnter={redirectToOrganizationsEdit} />
+    <Redirect path="/resource/new" to="/organizations/new" />
 
     <Route path="*" onEnter={redirectToRoot} />
   </Route>
