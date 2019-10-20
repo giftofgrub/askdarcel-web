@@ -1,6 +1,5 @@
 import React from 'react';
-import ServiceEntry from './ServiceEntry';
-import ResourceEntry from './ResourceEntry';
+import SearchEntry from './SearchEntry';
 
 const SearchRow = ({
   hit, index, page, hitsPerPage,
@@ -8,10 +7,10 @@ const SearchRow = ({
   let entry = null;
   switch (hit.type) {
     case 'service':
-      entry = <ServiceEntry page={page} hitsPerPage={hitsPerPage} hit={hit} index={index} />;
+      entry = <SearchEntry class="service-entry" page={page} hitsPerPage={hitsPerPage} hit={hit} index={index} />;
       break;
     case 'resource':
-      entry = <ResourceEntry page={page} hitsPerPage={hitsPerPage} hit={hit} index={index} />;
+      entry = <SearchEntry class="resource-entry" page={page} hitsPerPage={hitsPerPage} hit={hit} index={index} />;
       break;
     default:
     // eslint-disable-next-line no-console

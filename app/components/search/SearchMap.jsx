@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GoogleMap from 'google-map-react';
 import { Tooltip } from 'react-tippy';
-import ServiceEntry from './ServiceEntry';
-import ResourceEntry from './ResourceEntry';
+import SearchEntry from './SearchEntry';
 import config from '../../config';
 import './SearchMap.scss';
 
@@ -34,28 +33,17 @@ function CustomMarker({
   const hitNumber = page * hitsPerPage + index + 1;
 
   const getPopoverHtml = () => {
-    switch (hit.type) {
-      case 'service':
-        return (
-          <ServiceEntry
-            page={page}
-            hitsPerPage={hitsPerPage}
-            hit={hit}
-            index={index}
-          />
-        );
-      case 'resource':
-        return (
-          <ResourceEntry
-            page={page}
-            hitsPerPage={hitsPerPage}
-            hit={hit}
-            index={index}
-          />
-        );
-      default:
-        return null;
+    if (hit.type === 'service' || hit.type === 'resource') {
+      return (
+        <SearchEntry
+          page={page}
+          hitsPerPage={hitsPerPage}
+          hit={hit}
+          index={index}
+        />
+      );
     }
+    return null;
   };
 
   return (
