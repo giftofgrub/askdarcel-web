@@ -19,7 +19,18 @@ class ResourceEntry extends Component {
       <Link to={`/organizations/${hit.resource_id}`}>
         <li className="results-table-entry resource-entry">
           <div className="entry-details">
-            <h4 className="entry-headline">{`${hitNumber}. ${hit.name}`}</h4>
+            <div className="entry-header">
+              <h4 className="entry-headline">{`${hitNumber}. ${hit.name}`}</h4>
+              {hit.is_mohcd_funded
+                ? (
+                  <div className="mohcd-funded">
+                    <img src={images.mohcdSeal} alt="MOHCD seal" />
+                    <p>Funded by MOHCD</p>
+                  </div>
+                )
+                : null
+              }
+            </div>
             <p className="entry-meta">
               <span>{hit.address && hit.address.address_1 ? hit.address.address_1 : 'No address found'}</span>
               {recurringSchedule
@@ -30,20 +41,6 @@ class ResourceEntry extends Component {
                   )
               }
             </p>
-            {hit.is_mohcd_funded
-              ? (
-                <div className="mohcd-funded">
-                  <img src={images.mohcdSeal} alt="MOHCD seal" />
-                  <p>Funded by MOHCD</p>
-                </div>
-              )
-              : (
-                <div className="mohcd-funded">
-                  <img src={images.mohcdSeal} alt="MOHCD seal" />
-                  <p>Funded by MOHCD</p>
-                </div>
-              )
-            }
             <div className="entry-body">
               <ReactMarkdown className="rendered-markdown" source={description} />
             </div>
