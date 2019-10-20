@@ -24,7 +24,7 @@ class SearchEntry extends Component {
     }
     return (
       <Link to={{ pathname: `/${basePath}/${entryId}` }}>
-        <li className="results-table-entry">
+        <li className={`results-table-entry ${type}-entry`}>
           <div className="entry-details">
             <div className="entry-header">
               <h4 className="entry-headline">{`${hitNumber}. ${hit.name}`}</h4>

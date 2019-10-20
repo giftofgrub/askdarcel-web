@@ -5,13 +5,13 @@ export default class SearchPage {
     const baseSelector = ReactSelector('SearchTable');
     this.searchRows = baseSelector.findReact('SearchRow');
 
-    this.firstOrganization = baseSelector.findReact('ResourceEntry');
+    this.firstOrganization = baseSelector.find('.resource-entry');
     this.firstOrganizationName = this.firstOrganization.find('.entry-headline');
-    this.firstOrganizationDesc = this.firstOrganization.find('.entry-body');
+    this.firstOrganizationDesc = this.firstOrganization.find('.search-entry-body');
 
-    this.firstService = baseSelector.findReact('ServiceEntry');
+    this.firstService = baseSelector.find('.service-entry');
     this.firstServiceName = this.firstService.find('.entry-headline');
-    this.firstServiceDesc = this.firstService.find('.service-entry-body');
+    this.firstServiceDesc = this.firstService.find('.search-entry-body');
 
     this.openHours = baseSelector.find('.entry-hours');
     this.pagination = ReactSelector('InstantSearch').find('.ais-Pagination');
