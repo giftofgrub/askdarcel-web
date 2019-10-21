@@ -259,3 +259,9 @@ p.message {
     color: $color-grey5;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
+// INTERCOM OVERRIDES
+.intercom-launcher-frame {
+  z-index: auto !important;
+}
