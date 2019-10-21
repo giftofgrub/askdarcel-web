@@ -27,11 +27,11 @@ class EditAddress extends Component {
       noLocation: hasNoLocation(props.address) 
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
     this.handleNoLocationChange = this.handleNoLocationChange.bind(this);
   }
 
-  handleChange(e) {
+  handleAddressChange(e) {
     const { field } = e.target.dataset;
     const { value } = e.target;
     const { address } = this.state;
@@ -40,7 +40,7 @@ class EditAddress extends Component {
     if (address[field] || value !== item[field]) {
       address[field] = value;
       this.setState({ address });
-      updateAddress(index, address);
+      updateAddress(address);
     }
   }
 
@@ -51,6 +51,7 @@ class EditAddress extends Component {
       let newAddr;
       if (state.noLocation) {
         newAddr = address;
+        console.log("found address: " + address)
       } else {
         newAddr = {
           name: '',
@@ -64,9 +65,11 @@ class EditAddress extends Component {
           state_province: '',
         };
       }
+      console.log("no address: " + newAddr)
       return { noLocation: !state.noLocation, address: newAddr };
     }, () => {
-      const { address } = this.state;
+      const { index, address } = this.state;
+      console.log("INDEX " + index)
       updateAddress(address);
     });
   }
@@ -88,7 +91,7 @@ class EditAddress extends Component {
         </label>
       
         <AddressForm
-          handleChange={this.handleChange}
+          handleAddressChange={this.handleAddressChange}
           noLocation={noLocation}
           address={address}
           htmlID={htmlID}
@@ -99,7 +102,7 @@ class EditAddress extends Component {
 }
 
 const AddressForm = ({
-  noLocation, handleChange, address, htmlID
+  noLocation, handleAddressChange, address, htmlID
 }) => (
   <li key="address" className="edit--section--list--item">
     
@@ -115,7 +118,7 @@ const AddressForm = ({
                 placeholder="Name"
                 data-field="name"
                 defaultValue={address.name}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -124,7 +127,7 @@ const AddressForm = ({
                 placeholder="Address 1"
                 data-field="address_1"
                 defaultValue={address.address_1}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -133,7 +136,7 @@ const AddressForm = ({
                 placeholder="Address 2"
                 data-field="address_2"
                 defaultValue={address.address_2}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -142,7 +145,7 @@ const AddressForm = ({
                 placeholder="Address 3"
                 data-field="address_3"
                 defaultValue={address.address_3}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -151,7 +154,7 @@ const AddressForm = ({
                 placeholder="Address 4"
                 data-field="address_4"
                 defaultValue={address.address_4}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -160,7 +163,7 @@ const AddressForm = ({
                 placeholder="City"
                 data-field="city"
                 defaultValue={address.city}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -169,7 +172,7 @@ const AddressForm = ({
                 placeholder="State/Province"
                 data-field="state_province"
                 defaultValue={address.state_province}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -178,7 +181,7 @@ const AddressForm = ({
                 placeholder="Country"
                 data-field="country"
                 defaultValue={address.country}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
               <input
                 id={htmlID}
@@ -187,7 +190,7 @@ const AddressForm = ({
                 placeholder="Postal/Zip Code"
                 data-field="postal_code"
                 defaultValue={address.postal_code}
-                onChange={handleChange}
+                onChange={handleAddressChange}
               />
           </div>
         )
