@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import _ from 'lodash';
+import editCollectionHOC from './EditCollection';
+
 const hasNoLocation = address => {
   const someFieldExistsOrNewAddress = typeof address === 'undefined'
     || address.name !== '' || address.address_1 !== ''
@@ -15,20 +18,32 @@ const hasNoLocation = address => {
 class EditAddress extends Component {
   constructor(props) {
     super(props);
-    this.state = { address: {}, noLocation: hasNoLocation(props.address) };
-    this.handleAddressChange = this.handleAddressChange.bind(this);
+
+    const { item } = this.props;
+
+    this.state = { 
+      address: _.clone(item), 
+      noLocation: hasNoLocation(props.address) 
+    };
+
+    this.handleChange = this.handleChange.bind(this);
     this.handleNoLocationChange = this.handleNoLocationChange.bind(this);
   }
 
-  handleAddressChange(e) {
+  handleChange(e) {
     const { field } = e.target.dataset;
     const { value } = e.target;
     const { address } = this.state;
-    const { updateAddress } = this.props;
+    const { updateAddress, index, item } = this.props;
     address[field] = value;
-    this.setState(address, () => {
-      updateAddress(address);
-    });
+    // this.setState(address, () => {
+    //   updateAddress(address);
+    // });
+    if (address[field] || value !== item[field]) {
+      address[field] = value;
+      this.setState({ address });
+      updateAddress(index, address);
+    }
   }
 
   handleNoLocationChange() {
@@ -54,31 +69,34 @@ class EditAddress extends Component {
       return { noLocation: !state.noLocation, address: newAddr };
     }, () => {
       const { address } = this.state;
-      updateAddress(address);
+      updateAddress(index, address);
     });
   }
 
   render() {
-    const { address = {} } = this.props;
+    const { index, item: address } = this.props;
+    const htmlID = `address${index}`;
     const { noLocation } = this.state;
     return (
       <AddressForm
-        handleAddressChange={this.handleAddressChange}
+        handleChange={this.handleChange}
         handleNoLocationChange={this.handleNoLocationChange}
         noLocation={noLocation}
         address={address}
+        htmlID={htmlID}
       />
     );
   }
 }
 
 const AddressForm = ({
-  noLocation, handleNoLocationChange, handleAddressChange, address,
+  noLocation, handleNoLocationChange, handleChange, address, htmlID
 }) => (
   <li key="address" className="edit--section--list--item">
-    <label htmlFor="address">Address</label>
+    <label htmlFor={htmlID}>Address</label>
     <label>
       <input
+        id={htmlID}
         type="checkbox"
         className="input-checkbox"
         checked={noLocation}
@@ -95,7 +113,7 @@ const AddressForm = ({
               placeholder="Name"
               data-field="name"
               defaultValue={address.name}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -103,7 +121,7 @@ const AddressForm = ({
               placeholder="Address 1"
               data-field="address_1"
               defaultValue={address.address_1}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -111,7 +129,7 @@ const AddressForm = ({
               placeholder="Address 2"
               data-field="address_2"
               defaultValue={address.address_2}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -119,7 +137,7 @@ const AddressForm = ({
               placeholder="Address 3"
               data-field="address_3"
               defaultValue={address.address_3}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -127,7 +145,7 @@ const AddressForm = ({
               placeholder="Address 4"
               data-field="address_4"
               defaultValue={address.address_4}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -135,7 +153,7 @@ const AddressForm = ({
               placeholder="City"
               data-field="city"
               defaultValue={address.city}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -143,7 +161,7 @@ const AddressForm = ({
               placeholder="State/Province"
               data-field="state_province"
               defaultValue={address.state_province}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -151,7 +169,7 @@ const AddressForm = ({
               placeholder="Country"
               data-field="country"
               defaultValue={address.country}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -159,7 +177,7 @@ const AddressForm = ({
               placeholder="Postal/Zip Code"
               data-field="postal_code"
               defaultValue={address.postal_code}
-              onChange={handleAddressChange}
+              onChange={handleChange}
             />
           </div>
         )
@@ -167,4 +185,7 @@ const AddressForm = ({
   </li>
 );
 
-export default EditAddress;
+const EditAddresses = editCollectionHOC(EditAddress, 'Addresses', {}, true);
+EditAddresses.displayName = 'EditAddresses';
+
+export default EditAddresses;

@@ -5,7 +5,7 @@ import { withRouter, browserHistory } from 'react-router';
 import _ from 'lodash';
 
 import { Loader } from 'components/ui';
-import EditAddress from '../components/edit/EditAddress';
+import EditAddresses from '../components/edit/EditAddress';
 import EditServices from '../components/edit/EditServices';
 import EditNotes from '../components/edit/EditNotes';
 import EditSchedule from '../components/edit/EditSchedule';
@@ -737,7 +737,7 @@ class OrganizationEditPage extends React.Component {
             />
           </li>
 
-          <EditAddress
+          <EditAddresses
             address={resource.address}
             updateAddress={this.handleAddressChange}
           />
