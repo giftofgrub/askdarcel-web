@@ -22,8 +22,8 @@ class EditAddress extends Component {
     const { item } = this.props;
 
     this.state = { 
-      address: _.clone(item), 
-      noLocation: hasNoLocation(props.address) 
+      address: _.clone(item)
+      // noLocation: hasNoLocation(props.address) 
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,10 +35,7 @@ class EditAddress extends Component {
     const { value } = e.target;
     const { address } = this.state;
     const { updateAddress, index, item } = this.props;
-    address[field] = value;
-    // this.setState(address, () => {
-    //   updateAddress(address);
-    // });
+
     if (address[field] || value !== item[field]) {
       address[field] = value;
       this.setState({ address });
@@ -78,107 +75,119 @@ class EditAddress extends Component {
     const htmlID = `address${index}`;
     const { noLocation } = this.state;
     return (
-      <AddressForm
-        handleChange={this.handleChange}
-        handleNoLocationChange={this.handleNoLocationChange}
-        noLocation={noLocation}
-        address={address}
-        htmlID={htmlID}
-      />
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            className="input-checkbox"
+            checked={noLocation}
+            onChange={this.handleNoLocationChange}
+          />
+            No Physical Location
+        </label>
+      
+        <AddressForm
+          handleChange={this.handleChange}
+          noLocation={noLocation}
+          address={address}
+          htmlID={htmlID}
+        />
+      </div>
     );
   }
 }
 
 const AddressForm = ({
-  noLocation, handleNoLocationChange, handleChange, address, htmlID
+  noLocation, handleChange, address, htmlID
 }) => (
   <li key="address" className="edit--section--list--item">
-    <label htmlFor={htmlID}>Address</label>
-    <label>
-      <input
-        id={htmlID}
-        type="checkbox"
-        className="input-checkbox"
-        checked={noLocation}
-        onChange={handleNoLocationChange}
-      />
-        No Physical Location
-    </label>
+    
+    
     {!noLocation
         && (
           <div>
-            <input
-              type="text"
-              className="input"
-              placeholder="Name"
-              data-field="name"
-              defaultValue={address.name}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="Address 1"
-              data-field="address_1"
-              defaultValue={address.address_1}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="Address 2"
-              data-field="address_2"
-              defaultValue={address.address_2}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="Address 3"
-              data-field="address_3"
-              defaultValue={address.address_3}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="Address 4"
-              data-field="address_4"
-              defaultValue={address.address_4}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="City"
-              data-field="city"
-              defaultValue={address.city}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="State/Province"
-              data-field="state_province"
-              defaultValue={address.state_province}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="Country"
-              data-field="country"
-              defaultValue={address.country}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="Postal/Zip Code"
-              data-field="postal_code"
-              defaultValue={address.postal_code}
-              onChange={handleChange}
-            />
+            <label htmlFor={htmlID}>Address</label>
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="Name"
+                data-field="name"
+                defaultValue={address.name}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="Address 1"
+                data-field="address_1"
+                defaultValue={address.address_1}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="Address 2"
+                data-field="address_2"
+                defaultValue={address.address_2}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="Address 3"
+                data-field="address_3"
+                defaultValue={address.address_3}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="Address 4"
+                data-field="address_4"
+                defaultValue={address.address_4}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="City"
+                data-field="city"
+                defaultValue={address.city}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="State/Province"
+                data-field="state_province"
+                defaultValue={address.state_province}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="Country"
+                data-field="country"
+                defaultValue={address.country}
+                onChange={handleChange}
+              />
+              <input
+                id={htmlID}
+                type="text"
+                className="input"
+                placeholder="Postal/Zip Code"
+                data-field="postal_code"
+                defaultValue={address.postal_code}
+                onChange={handleChange}
+              />
           </div>
         )
     }
