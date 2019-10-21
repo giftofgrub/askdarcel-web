@@ -10,6 +10,7 @@ const hasNoLocation = address => {
     || address.address_4 !== '' || address.city !== '' || address.postal_code !== ''
     || address.state_province !== '' || address.country !== '';
   if (someFieldExistsOrNewAddress) {
+    console.log("No address exists")
     return false;
   }
   return true;
@@ -22,8 +23,8 @@ class EditAddress extends Component {
     const { item } = this.props;
 
     this.state = { 
-      address: _.clone(item)
-      // noLocation: hasNoLocation(props.address) 
+      address: _.clone(item), 
+      noLocation: hasNoLocation(props.address) 
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -66,7 +67,7 @@ class EditAddress extends Component {
       return { noLocation: !state.noLocation, address: newAddr };
     }, () => {
       const { address } = this.state;
-      updateAddress(index, address);
+      updateAddress(address);
     });
   }
 
