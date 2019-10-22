@@ -3,15 +3,15 @@
   align-items: center;
   width: 100%;
   flex: 1 0 30vh;
-  color: #fff;
+  color: #212121;
   min-height: 100px;
-  background-color: #205493;
+  background-color: #e0e0e0;
   padding: 50px 0;
   font-size: .9em;
   a {
-    color: rgba(255,255,255,0.7);
+    color: rgba(0,0,0,0.9);
     &:hover {
-      color: rgba(255,255,255,1);
+      color: #0025e4;
     }
   }
 }
@@ -64,14 +64,15 @@
 }
 
 .service-guide__icon {
-  background-image: url(./footer-icon.png);
+  background-image: url(./sfsg-logo.svg);
   background-repeat: no-repeat;
   margin-right: 5px;
   height: 20px;
   width: 20px;
 }
 
-.service-guide__text {
+.service-guide__text a {
+  color: #0025e4;
   text-transform: uppercase;
 }
 

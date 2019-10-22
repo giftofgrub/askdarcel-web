@@ -5,10 +5,9 @@ import * as ax from 'axios';
 
 import Footer from 'components/ui/Footer/Footer';
 import Partners from 'components/ui/Partners/Partners';
-import heroBackground from 'assets/img/HomePage/hero-background.svg';
-
 import CategoryList from './components/CategoryList';
 import HomePageHero from './components/HomePageHero';
+import HomePageBackground from './components/HomePageBackground';
 import SearchBar from './components/SearchBar';
 import Guidelist from './components/GuideList';
 import Section from './components/Section';
@@ -63,20 +62,20 @@ export default class HomePage extends React.Component {
     } = this.state;
     return (
       <div className="find-page">
+        <HomePageBackground />
         <HomePageHero
           title="Find social services in San Francisco"
-          description="Discover housing, homelessness, legal, and many more free and reduced cost social services near you"
-          imageURL={heroBackground}
+          description="The SF Service Guide works to educate and equip low-income individuals, families, and their advocates with the information and tools to navigate the social services system in San Francisco."
         />
         <Section
-          title="Guided Pathways"
-          description="Need help but not sure where to start? Try one of our guided pathways."
+          title="Resource Guides"
+          description="Get guided help with many of the most common issues people are facing in San Francisco."
         >
           <Guidelist />
         </Section>
         <Section
           title="Browse Directory"
-          description="Looking for a specific organization? Search the directory or browse by category."
+          description="Search the directory for a specific social service provider or browse by category."
         >
           <SearchBar
             placeholder={`Search ${resourceCount || ''} resources in San Francisco`}

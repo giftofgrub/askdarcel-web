@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import styles from './Section.scss';
 
-const Section = ({ title, description, children }) => (
+const Section = ({
+  title, description, children,
+}) => (
   <section className={styles.section}>
     <div className={styles.content}>
       <h1 className={styles.title}>{ title }</h1>
