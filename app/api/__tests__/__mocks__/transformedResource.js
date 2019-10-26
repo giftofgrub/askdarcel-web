@@ -43,7 +43,7 @@ export const transformedResource = {
             open_time: null,
             open_day: null,
             close_time: null,
-            close_day: null
+            close_day: null,
           },
           {
             id: 4,
@@ -53,7 +53,7 @@ export const transformedResource = {
             open_time: null,
             open_day: null,
             close_time: null,
-            close_day: null
+            close_day: null,
           },
           {
             id: 3,
@@ -63,7 +63,7 @@ export const transformedResource = {
             open_time: null,
             open_day: null,
             close_time: null,
-            close_day: null
+            close_day: null,
           },
           {
             id: 2,
@@ -73,7 +73,7 @@ export const transformedResource = {
             open_time: null,
             open_day: null,
             close_time: null,
-            close_day: null
+            close_day: null,
           },
           {
             id: 1,
@@ -83,23 +83,23 @@ export const transformedResource = {
             open_time: null,
             open_day: null,
             close_time: null,
-            close_day: null
-          }
-        ]
+            close_day: null,
+          },
+        ],
       },
       notes: [
         {
           id: 1,
-          note: 'English & Spanish. Email: info@lyon-martin.org.'
-        }
+          note: 'English & Spanish. Email: info@lyon-martin.org.',
+        },
       ],
       categories: [
         {
           name: 'Medical',
           id: 3,
           top_level: true,
-          featured: false
-        }
+          featured: false,
+        },
       ],
       eligibilities: [],
       recurringSchedule: {
@@ -108,65 +108,65 @@ export const transformedResource = {
             opensAt: {
               day: 1,
               hour: 11,
-              minute: 0
+              minute: 0,
             },
             closesAt: {
               day: 1,
               hour: 19,
-              minute: 30
-            }
+              minute: 30,
+            },
           },
           {
             opensAt: {
               day: 2,
               hour: 11,
-              minute: 0
+              minute: 0,
             },
             closesAt: {
               day: 2,
               hour: 19,
-              minute: 30
-            }
+              minute: 30,
+            },
           },
           {
             opensAt: {
               day: 3,
               hour: 9,
-              minute: 0
+              minute: 0,
             },
             closesAt: {
               day: 3,
               hour: 17,
-              minute: 30
-            }
+              minute: 30,
+            },
           },
           {
             opensAt: {
               day: 4,
               hour: 9,
-              minute: 0
+              minute: 0,
             },
             closesAt: {
               day: 4,
               hour: 17,
-              minute: 30
-            }
+              minute: 30,
+            },
           },
           {
             opensAt: {
               day: 5,
               hour: 9,
-              minute: 0
+              minute: 0,
             },
             closesAt: {
               day: 5,
               hour: 17,
-              minute: 30
-            }
-          }
-        ]
-      }
-    }
+              minute: 30,
+            },
+          },
+        ],
+      },
+    },
   ],
   schedule: {
     id: 1,
@@ -179,7 +179,7 @@ export const transformedResource = {
         open_time: null,
         open_day: null,
         close_time: null,
-        close_day: null
+        close_day: null,
       },
       {
         id: 4,
@@ -189,7 +189,7 @@ export const transformedResource = {
         open_time: null,
         open_day: null,
         close_time: null,
-        close_day: null
+        close_day: null,
       },
       {
         id: 3,
@@ -199,7 +199,7 @@ export const transformedResource = {
         open_time: null,
         open_day: null,
         close_time: null,
-        close_day: null
+        close_day: null,
       },
       {
         id: 2,
@@ -209,7 +209,7 @@ export const transformedResource = {
         open_time: null,
         open_day: null,
         close_time: null,
-        close_day: null
+        close_day: null,
       },
       {
         id: 1,
@@ -219,9 +219,9 @@ export const transformedResource = {
         open_time: null,
         open_day: null,
         close_time: null,
-        close_day: null
-      }
-    ]
+        close_day: null,
+      },
+    ],
   },
   phones: [
     {
@@ -229,8 +229,8 @@ export const transformedResource = {
       number: '(415) 565-7667',
       extension: null,
       service_type: '',
-      country_code: 'US'
-    }
+      country_code: 'US',
+    },
   ],
   address: {
     id: 1,
@@ -245,7 +245,7 @@ export const transformedResource = {
     postal_code: '',
     country: 'USA',
     latitude: '37.7725604',
-    longitude: '-122.4230558'
+    longitude: '-122.4230558',
   },
   notes: [],
   categories: [
@@ -253,8 +253,8 @@ export const transformedResource = {
       name: 'Medical',
       id: 3,
       top_level: true,
-      featured: false
-    }
+      featured: false,
+    },
   ],
   ratings: [],
   recurringSchedule: {
@@ -263,62 +263,62 @@ export const transformedResource = {
         opensAt: {
           day: 1,
           hour: 11,
-          minute: 0
+          minute: 0,
         },
         closesAt: {
           day: 1,
           hour: 19,
-          minute: 30
-        }
+          minute: 30,
+        },
       },
       {
         opensAt: {
           day: 2,
           hour: 11,
-          minute: 0
+          minute: 0,
         },
         closesAt: {
           day: 2,
           hour: 19,
-          minute: 30
-        }
+          minute: 30,
+        },
       },
       {
         opensAt: {
           day: 3,
           hour: 9,
-          minute: 0
+          minute: 0,
         },
         closesAt: {
           day: 3,
           hour: 17,
-          minute: 30
-        }
+          minute: 30,
+        },
       },
       {
         opensAt: {
           day: 4,
           hour: 9,
-          minute: 0
+          minute: 0,
         },
         closesAt: {
           day: 4,
           hour: 17,
-          minute: 30
-        }
+          minute: 30,
+        },
       },
       {
         opensAt: {
           day: 5,
           hour: 9,
-          minute: 0
+          minute: 0,
         },
         closesAt: {
           day: 5,
           hour: 17,
-          minute: 30
-        }
-      }
-    ]
-  }
-}
+          minute: 30,
+        },
+      },
+    ],
+  },
+};

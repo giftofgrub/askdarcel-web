@@ -23,10 +23,10 @@ export function post(url, body, headers) {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
-  console.log("dataservice post body",body)
   if (headers) {
     queryHeaders = _.assignIn(queryHeaders, headers);
   }
+  // FIXME: use config headers
   return axios.post(url, body, headers).then(res => res.data);
 }
 

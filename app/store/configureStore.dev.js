@@ -1,16 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunkMiddleware from 'redux-thunk';
-import promise from "redux-promise-middleware";
+import promise from 'redux-promise-middleware';
 import rootReducer from '../reducers';
 
 // Download redux dev tools here: https://github.com/zalmoxisus/redux-devtools-extension
 
 const middleware = [
-  reduxImmutableStateInvariant(), //FIXME: consider adding immutableJS
+  reduxImmutableStateInvariant(), // FIXME: consider adding immutableJS
   thunkMiddleware,
-  promise
-]
+  promise,
+];
 
 export default function configureStore(initialState) {
   return createStore(

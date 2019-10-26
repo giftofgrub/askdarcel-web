@@ -42,9 +42,6 @@ const getResourceLocation = resource => {
 export class OrganizationListingPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      resource: null,
-    };
     this.verifyResource = this.verifyResource.bind(this);
   }
 
@@ -60,7 +57,7 @@ export class OrganizationListingPage extends React.Component {
         },
       },
     } = this.props;
-    await this.props.setResource(id)
+    await this.props.setResource(id);
   }
 
   verifyResource() {
@@ -84,7 +81,7 @@ export class OrganizationListingPage extends React.Component {
   }
 
   render() {
-    const { resource } = this.props
+    const { resource } = this.props;
 
     if (!resource || !window.google) {
       return <Loader />;
@@ -207,16 +204,16 @@ OrganizationListingPage.propTypes = {
 };
 
 
-function mapStateToProps({resource}) {
+function mapStateToProps({ resource }) {
   return {
     resource: resource.resource || {},
   };
-};
+}
 
 function mapDispatchToProps(dispatch) {
   return {
     setResource: id => dispatch(Resource.getResourceAction(id)),
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrganizationListingPage);

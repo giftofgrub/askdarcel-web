@@ -7,8 +7,7 @@ import changeRequestReducer from './changeRequestReducer';
 import popUpMessageReducer from './popUpMessageReducer';
 import forms from './formConfig';
 
-import { User } from '../models';
-import { Resource } from '../models';
+import { User, Resource } from '../models';
 
 const rootReducer = combineReducers({
   auth,

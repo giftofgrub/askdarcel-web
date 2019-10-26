@@ -1,12 +1,14 @@
 import promiseMiddleware from 'redux-promise-middleware';
-import {PENDING, FULFILLED, REJECTED, addRecurSchedToResource} from './utils'
-import { getResource, submitChangeRequests } from '../api/resourceService'
+import {
+  PENDING, FULFILLED, REJECTED, addRecurSchedToResource,
+} from './utils';
+import { getResource, submitChangeRequests } from '../api/resourceService';
 
 const initialState = {
   isPending: false,
   resource: {},
   isNewResource: false,
-  error: {}
+  error: {},
 };
 
 export const ACTIONS = {
@@ -17,66 +19,60 @@ export const ACTIONS = {
 
 export function REDUCER(state = initialState, action) {
   switch (action.type) {
-    case PENDING(ACTIONS.GET_RESOURCE):
-      return {
-        ...state,
-        isPending: true,
-      }
+  case PENDING(ACTIONS.GET_RESOURCE):
+    return {
+      ...state,
+      isPending: true,
+    };
 
-    case FULFILLED(ACTIONS.GET_RESOURCE):
-      return {
-        ...state,
-        isPending: false,
-        //resource:  Object.assign({}, {})//addRecurSchedToResource(action.payload.data.resource) //RENAME FN
-        resource: addRecurSchedToResource(action.payload.data.resource) //RENAME FN
-      };
+  case FULFILLED(ACTIONS.GET_RESOURCE):
+    return {
+      ...state,
+      isPending: false,
+      // resource:  Object.assign({}, {})//addRecurSchedToResource(action.payload.data.resource) //RENAME FN
+      resource: addRecurSchedToResource(action.payload.data.resource), // RENAME FN
+    };
 
-    case REJECTED(ACTIONS.GET_RESOURCE):
-      return {
-        ...state,
-        isPending: false,
-        error: action.payload
-      }
+  case REJECTED(ACTIONS.GET_RESOURCE):
+    return {
+      ...state,
+      isPending: false,
+      error: action.payload,
+    };
 
 
-      case PENDING(ACTIONS.UPDATE_RESOURCE):
-        return {
-          ...state,
-          isPending: true,
-        }
+  case PENDING(ACTIONS.UPDATE_RESOURCE):
+    return {
+      ...state,
+      isPending: true,
+    };
 
-      case FULFILLED(ACTIONS.UPDATE_RESOURCE):
-        return {
-          ...state,
-          isPending: false,
-          //resource: action.payload
-        };
+  case FULFILLED(ACTIONS.UPDATE_RESOURCE):
+    return {
+      ...state,
+      isPending: false,
+      // resource: action.payload
+    };
 
-      case REJECTED(ACTIONS.UPDATE_RESOURCE):
-        return {
-          ...state,
-          isPending: false,
-          error: action.payload
-        }
+  case REJECTED(ACTIONS.UPDATE_RESOURCE):
+    return {
+      ...state,
+      isPending: false,
+      error: action.payload,
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }
 
 
+export const getResourceAction = id => ({
+  type: ACTIONS.GET_RESOURCE,
+  payload: getResource(id),
+});
 
-export const getResourceAction = id => {
-  return {
-    type: ACTIONS.GET_RESOURCE,
-    payload: getResource(id)
-  }
-}
-
-export const updateResourceAction = promises => {
-
-  return {
-    type: ACTIONS.UPDATE_RESOURCE,
-    payload: submitChangeRequests(promises)
-  }
-}
+export const updateResourceAction = promises => ({
+  type: ACTIONS.UPDATE_RESOURCE,
+  payload: submitChangeRequests(promises),
+});

@@ -92,12 +92,6 @@ function updateCollectionObject(object, id, path, promises) {
  */
 
 
-
-
-
-
-
-
 const buildScheduleDays = schedule => {
   const scheduleId = schedule ? schedule.id : null;
   const currSchedule = {};
@@ -150,15 +144,6 @@ const buildScheduleDays = schedule => {
   return finalSchedule;
 };
 export { buildScheduleDays };
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -371,24 +356,22 @@ class OrganizationEditPage extends React.Component {
     const splitPath = pathname.split('/');
     window.addEventListener('beforeunload', this.keepOnPage);
     if (splitPath[splitPath.length - 1] === 'new') {
-
       this.setState({
-        newResource: true, resource: { schedule: {}, scheduleObj: buildScheduleDays(undefined) },
+        newResource: true,
+        resource: { schedule: {}, scheduleObj: buildScheduleDays(undefined) },
         resource: {
           schedule: {},
-          scheduleObj: buildScheduleDays(undefined)
+          scheduleObj: buildScheduleDays(undefined),
         },
       });
     }
 
     const resourceID = query.resourceid;
     if (resourceID) {
-
       setResource(resourceID)
-        .then(() => this.handleAPIGetResource())
+        .then(() => this.handleAPIGetResource());
     }
   }
-
 
 
   componentWillUnmount() {
@@ -396,7 +379,7 @@ class OrganizationEditPage extends React.Component {
   }
 
   handleAPIGetResource = () => {
-    const resource = this.props.resource
+    const { resource } = this.props;
     const services = (resource.services || []).reduce(
       (acc, service) => ({
         ...acc,
@@ -640,12 +623,12 @@ class OrganizationEditPage extends React.Component {
         type: 'success',
         message: 'Successfully saved your changes.',
       });
-    })//.catch(err => {//FIXME: handle err
-      // console.log(err);
-      // showPopUpMessage({
-      //   type: 'error',
-      //   message: 'Sorry! An error occurred.',
-      // });
+    });// .catch(err => {//FIXME: handle err
+    // console.log(err);
+    // showPopUpMessage({
+    //   type: 'error',
+    //   message: 'Sorry! An error occurred.',
+    // });
     // });
   }
 
@@ -899,7 +882,8 @@ If you&#39;d like to add formatting to descriptions, we support
               <h1 className="edit--main--header--title">Let&apos;s start with the basics</h1>
             </header>
             <div className="edit--sections">
-              "{this.renderSectionFields()}
+              "
+              {this.renderSectionFields()}
             </div>
             {!newResource && (
               <div className="edit--services">
@@ -932,8 +916,7 @@ OrganizationEditPage.propTypes = {
 };
 
 
-
-function mapStateToProps({resource}) {
+function mapStateToProps({ resource }) {
   return {
     resource: resource.resource,
   };
@@ -948,5 +931,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(withPopUpMessages(OrganizationEditPage))
+  connect(mapStateToProps, mapDispatchToProps)(withPopUpMessages(OrganizationEditPage)),
 );

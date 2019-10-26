@@ -17,11 +17,11 @@ import {
 
 
 describe('Resource Services', () => {
-  let mockAdapter
+  let mockAdapter;
 
   before(() => {
     mockAdapter = new MockAdapter(axInstance);
-  })
+  });
 
   it('Should return single resource', async () => {
     mockAdapter.onGet('/resources/1').reply(200, { resource });
