@@ -1,5 +1,5 @@
 import * as _ from 'lodash/fp/object';
-
+import axios from 'axios';
 import { parseAPISchedule } from './transformSchedule';
 
 function setAuthHeaders(resp) {
@@ -23,19 +23,11 @@ export function post(url, body, headers) {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
+  console.log("dataservice post body",body)
   if (headers) {
     queryHeaders = _.assignIn(queryHeaders, headers);
   }
-  return fetch(url, {
-    method: 'POST',
-    mode: 'cors',
-    headers: queryHeaders,
-    body: JSON.stringify(body),
-  }).then(resp => {
-    if (!resp.ok) { throw resp; }
-    setAuthHeaders(resp);
-    return resp;
-  });
+  return axios.post(url, body, headers).then(res => res.data);
 }
 
 export function get(url, headers) {

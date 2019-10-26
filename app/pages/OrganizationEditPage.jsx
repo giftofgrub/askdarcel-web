@@ -90,6 +90,14 @@ function updateCollectionObject(object, id, path, promises) {
  * required for the UI because the blank time needs to appear under a day of
  * week before an open and close time is set.
  */
+
+
+
+
+
+
+
+
 const buildScheduleDays = schedule => {
   const scheduleId = schedule ? schedule.id : null;
   const currSchedule = {};
@@ -128,11 +136,11 @@ const buildScheduleDays = schedule => {
           // scheduleID is needed when creating no data
           currSchedule[currDay] = [{ opens_at: 0, closes_at: 2359, id: day.id }];
         } else {
-          Object.assign(day, { openChanged: false, closeChanged: false });
+          const newDay = Object.assign(day, { openChanged: false, closeChanged: false });
           if (currSchedule[currDay]) {
-            currSchedule[day.day].unshift(day);
+            currSchedule[newDay.day].unshift(newDay);
           } else {
-            currSchedule[day.day] = [day];
+            currSchedule[newDay.day] = [newDay];
           }
         }
       }
@@ -142,6 +150,16 @@ const buildScheduleDays = schedule => {
   return finalSchedule;
 };
 export { buildScheduleDays };
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Create a change request for a new object.
@@ -168,7 +186,7 @@ function createNewPhoneNumber(item, resourceID, promises) {
   );
 }
 
-function deletCollectionObject(item, path, promises) {
+function deleteCollectionObject(item, path, promises) {
   if (path === 'phones') {
     promises.push(
       dataService.APIDelete(`/api/phones/${item.id}`),
@@ -180,7 +198,7 @@ function postCollection(collection, originalCollection, path, promises, resource
   for (let i = 0; i < collection.length; i += 1) {
     const item = collection[i];
     if (item.isRemoved) {
-      deletCollectionObject(item, path, promises);
+      deleteCollectionObject(item, path, promises);
     } else if (i < originalCollection.length && item.dirty) {
       const diffObj = getDiffObject(item, originalCollection[i]);
       if (!_.isEmpty(diffObj)) {
@@ -347,42 +365,29 @@ class OrganizationEditPage extends React.Component {
     );
   }
 
-
-
-
-
-
-
   componentDidMount() {
     const { setResource } = this.props;
     const { location: { query, pathname } } = this.props;
     const splitPath = pathname.split('/');
     window.addEventListener('beforeunload', this.keepOnPage);
     if (splitPath[splitPath.length - 1] === 'new') {
+
       this.setState({
         newResource: true, resource: { schedule: {}, scheduleObj: buildScheduleDays(undefined) },
+        resource: {
+          schedule: {},
+          scheduleObj: buildScheduleDays(undefined)
+        },
       });
     }
+
     const resourceID = query.resourceid;
     if (resourceID) {
-      console.log("testing")
-      console.log("testme",setResource(resourceID))
 
       setResource(resourceID)
-        .then(data => this.handleAPIGetResource(data))
-
-      // const url = `/api/resources/${resourceID}`;
-      // fetch(url).then(r => r.json())
-      //   .then(data => this.handleAPIGetResource(data.resource));
-
+        .then(() => this.handleAPIGetResource())
     }
   }
-
-
-
-
-
-
 
 
 
@@ -390,7 +395,8 @@ class OrganizationEditPage extends React.Component {
     window.removeEventListener('beforeunload', this.keepOnPage);
   }
 
-  handleAPIGetResource = resource => {
+  handleAPIGetResource = () => {
+    const resource = this.props.resource
     const services = (resource.services || []).reduce(
       (acc, service) => ({
         ...acc,
@@ -628,19 +634,19 @@ class OrganizationEditPage extends React.Component {
     postNotes(notes, promises, { path: 'resources', id: resource.id });
 
     const that = this;
-    Promise.all(promises).then(() => {
+    this.props.updateResource(promises).then(() => {
       that.props.router.push({ pathname: '/resource', query: { id: that.state.resource.id } });
       showPopUpMessage({
         type: 'success',
         message: 'Successfully saved your changes.',
       });
-    }).catch(err => {
-      console.log(err);
-      showPopUpMessage({
-        type: 'error',
-        message: 'Sorry! An error occurred.',
-      });
-    });
+    })//.catch(err => {//FIXME: handle err
+      // console.log(err);
+      // showPopUpMessage({
+      //   type: 'error',
+      //   message: 'Sorry! An error occurred.',
+      // });
+    // });
   }
 
   handleDeactivation(type, id) {
@@ -731,7 +737,8 @@ class OrganizationEditPage extends React.Component {
   }
 
   renderSectionFields() {
-    const { resource, scheduleObj } = this.state;
+    const { scheduleObj } = this.state;
+    const { resource } = this.props;
     return (
       <section id="info" className="edit--section">
         <ul className="edit--section--list">
@@ -892,7 +899,7 @@ If you&#39;d like to add formatting to descriptions, we support
               <h1 className="edit--main--header--title">Let&apos;s start with the basics</h1>
             </header>
             <div className="edit--sections">
-              {this.renderSectionFields()}
+              "{this.renderSectionFields()}
             </div>
             {!newResource && (
               <div className="edit--services">
@@ -928,7 +935,7 @@ OrganizationEditPage.propTypes = {
 
 function mapStateToProps({resource}) {
   return {
-    resource: resource,
+    resource: resource.resource,
   };
 }
 
@@ -936,6 +943,7 @@ function mapStateToProps({resource}) {
 function mapDispatchToProps(dispatch) {
   return {
     setResource: id => dispatch(Resource.getResourceAction(id)),
+    updateResource: sched => dispatch(Resource.updateResourceAction(sched)),
   };
 }
 

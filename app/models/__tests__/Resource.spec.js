@@ -35,12 +35,12 @@ describe('Resource Model Reducer', () => {
     expect(state.error).to.be.empty;
   });
 
-  it('should set pending to true', () => {
+  it('should set pending get resource to true', () => {
     const newState = Resource.REDUCER(existingState, {type: PENDING(ACTIONS.GET_RESOURCE)});
     expect(newState.isPending).to.be.true;
   });
 
-  it('should set the resource object', () => {
+  it('should set the get resource object', () => {
     const fulfilledAction = {
       type: FULFILLED(ACTIONS.GET_RESOURCE),
       payload: {data: {resource}}
@@ -53,7 +53,7 @@ describe('Resource Model Reducer', () => {
     expect(newState.resource).to.include(transformedResource);
   });
 
-  it('should set the resource object with recurring schedule', () => {
+  it('should set the get resource object with recurring schedule', () => {
     const fulfilledAction = {
       type: FULFILLED(ACTIONS.GET_RESOURCE),
       payload: {data: {resource}}

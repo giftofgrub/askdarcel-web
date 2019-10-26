@@ -7,7 +7,7 @@ import rootReducer from '../reducers';
 // Download redux dev tools here: https://github.com/zalmoxisus/redux-devtools-extension
 
 const middleware = [
-  reduxImmutableStateInvariant(),
+  reduxImmutableStateInvariant(), //FIXME: consider adding immutableJS
   thunkMiddleware,
   promise
 ]
