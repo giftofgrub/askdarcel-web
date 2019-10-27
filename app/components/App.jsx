@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
-import Navigation from './ui/Navigation';
+import Navigation from './ui/Navigation/Navigation';
 // import CategoryPage from './find/FindPage';
 // import ResourcesTable from './search/ResourcesTable';
 import { round } from '../utils/index';
