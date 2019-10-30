@@ -8,10 +8,12 @@ import ImgEviction from './assets/EvictionPrevention.jpg';
 import ImgEvictionPartner from './assets/logos/EDC.png';
 import ImgAffordableHousing from './assets/AffordableHousing.jpg';
 import ImgAffordableHousingPartner from './assets/logos/homeownershipsf.png';
+import ImgFamilyHomelessness from './assets/FamilyHomelessness.jpg';
 import ImgYouthHomelessness from './assets/YouthHomelessness.jpg';
 import ImgYouthHomelessnessPartner from './assets/logos/larkin.png';
 import ImgAdultHomelessness from './assets/AdultHomelessness.jpg';
 import ImgAdultHomelessnessPartner from './assets/logos/JDC.png';
+import ImgFamilyHomelessnessPartner from './assets/logos/compass.png';
 
 function typeform(event, link) {
   const typeformReference = typeformEmbed.makePopup(
@@ -78,6 +80,15 @@ const GuideList = () => (
           img={ImgAffordableHousing}
           partner="Homeownership SF"
           partnerImg={ImgAffordableHousingPartner}
+        />
+      </li>
+      <li className={styles.item}>
+        <GuideCard
+          name="Family Homelessness"
+          link="https://sheltertech.typeform.com/to/GFEzl2"
+          img={ImgFamilyHomelessness}
+          partner="Compass Family Services"
+          partnerImg={ImgFamilyHomelessnessPartner}
         />
       </li>
       <li className={styles.item}>

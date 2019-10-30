@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="60px" height="54px" viewBox="0 0 60 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>cat-work</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M43.985,62 L43.985,59 L23.015,59 L22.985,71 C22.985,74.33 25.655,77 28.985,77 L70.985,77 C74.315,77 76.985,74.33 76.985,71 L76.985,59 L55.985,59 L55.985,62 L43.985,62 Z M73.985,35 L61.955,35 L61.955,29 L55.955,23 L43.955,23 L37.985,29 L37.985,35 L26,35 C22.685,35 20,37.685 20,41 L20,50 C20,53.315 22.685,56 26,56 L44,56 L44,50 L56,50 L56,56 L74,56 C77.315,56 80,53.315 80,50 L80,41 C79.985,37.685 77.3,35 73.985,35 Z M55.97,35 L43.97,35 L43.97,29 L55.97,29 L55.97,35 Z" id="path-1"></path>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="askdarcel/icon/category/work" transform="translate(-20.000000, -23.000000)">
-            <mask id="mask-2" fill="white">
-                <use xlink:href="#path-1"></use>
-            </mask>
-            <use id="cat-work" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
-        </g>
-    </g>
-</svg>
+<svg height="54" viewBox="0 0 60 54" width="60" xmlns="http://www.w3.org/2000/svg"><path d="m43.985 62v-3h-20.97l-.03 12c0 3.33 2.67 6 6 6h42c3.33 0 6-2.67 6-6v-12h-21v3zm30-27h-12.03v-6l-6-6h-12l-5.97 6v6h-11.985c-3.315 0-6 2.685-6 6v9c0 3.315 2.685 6 6 6h18v-6h12v6h18c3.315 0 6-2.685 6-6v-9c-.015-3.315-2.7-6-6.015-6zm-18.015 0h-12v-6h12z" transform="translate(-20 -23)"/></svg>
