@@ -67,7 +67,7 @@ const GuideList = () => (
       <li className={styles.item}>
         <GuideCard
           name="Eviction Prevention"
-          link="https://sheltertech.typeform.com/to/i92DO4"
+          link="https://sheltertech.typeform.com/to/AuWYAN"
           img={ImgEviction}
           partner="Eviction Defense Collaborative"
           partnerImg={ImgEvictionPartner}
@@ -103,7 +103,7 @@ const GuideList = () => (
       <li className={styles.item}>
         <GuideCard
           name="Adult Homelessness"
-          link="https://rachelpoonsiriwong.typeform.com/to/mXv584"
+          link="https://sheltertech.typeform.com/to/KXi3Pp"
           img={ImgAdultHomelessness}
           partner="Homeless Advocacy Project"
           partnerImg={ImgAdultHomelessnessPartner}
