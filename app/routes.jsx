@@ -13,7 +13,7 @@ import { ServiceListingPage } from './pages/ServiceListingPage';
 
 import { PrivacyPolicyPage } from './pages/legal/PrivacyPolicy';
 import { TermsOfServicePage } from './pages/legal/TermsOfService';
-import { AboutPage } from './pages/about/About';
+import About from './pages/About';
 import { ListingDebugPage } from './pages/debug/ListingDemoPage';
 
 function redirectToRoot(nextState, replace) {
@@ -45,7 +45,7 @@ function scrollToTop(prevState, nextState) {
 export default (
   <Route path="/" component={App} onChange={scrollToTop}>
     <IndexRoute component={HomePage} />
-    <Route path="/about" component={AboutPage} />
+    <Route path="/about" component={About} />
     <Route path="/demo/listing" component={ListingDebugPage} />
     <Route path="/organizations/new" component={OrganizationEditPage} />
     <Route path="/organizations/:id" component={OrganizationListingPage} />
