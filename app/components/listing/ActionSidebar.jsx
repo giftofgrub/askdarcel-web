@@ -10,7 +10,6 @@ import './ActionSidebar.scss';
 const getSidebarActions = (resource, service) => {
   const resourceActions = getResourceActions(resource, service);
   const sidebarActions = [
-    resourceActions.edit,
     resourceActions.print,
     resourceActions.verify,
   ];
