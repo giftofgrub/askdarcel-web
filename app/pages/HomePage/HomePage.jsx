@@ -62,8 +62,8 @@ export default class HomePage extends React.Component {
     return (
       <div className="find-page">
         <HomePageHero
-          title="Find social services in San Francisco"
-          description="The SF Service Guide works to educate and equip low-income individuals, families, and their advocates with the information and tools to navigate the social services system in San Francisco."
+          title="Welcome to the SF Service Guide"
+          description="Find food, housing, health resources and more in San Francisco."
         />
         <Section
           title="Resource Guides"

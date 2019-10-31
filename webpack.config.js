@@ -81,6 +81,7 @@ module.exports = {
           path.resolve(__dirname, 'app/components/listing/MOHCDBadge'),
           path.resolve(__dirname, 'app/components/listing/HAPBadge'),
           path.resolve(__dirname, 'app/pages/HomePage'),
+          path.resolve(__dirname, 'app/pages/About'),
         ],
         test: /\.s?css$/,
         use: [
@@ -117,6 +118,7 @@ module.exports = {
           path.resolve(__dirname, 'app/components/listing/MOHCDBadge'),
           path.resolve(__dirname, 'app/components/listing/HAPBadge'),
           path.resolve(__dirname, 'app/pages/HomePage'),
+          path.resolve(__dirname, 'app/pages/About'),
         ],
         test: /\.s?css$/,
         use: [

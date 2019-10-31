@@ -1,21 +1,16 @@
-.listing-container.about {
-  background: #fff;
+.textPage {
+  max-width: 1000px;
+  padding: 0 25px;
+  margin: 0 auto;
+  min-height: 100vh;
 
-  .text-page {
-    max-width: 1000px;
-    padding: 0 25px;
-    margin: 0 auto;
-    min-height: 100vh;
-
-    p {
-      font-size: 1.2em;
-      line-height: 1.5;
-    }
+  p {
+    font-size: 1.2em;
+    line-height: 1.5;
   }
-
 }
 
-.listing-container.about header {
+.aboutHeader {
   padding-top: 100px;
   @media screen and (max-width: 800px) {
     padding-top: 50px;
@@ -31,7 +26,7 @@
   }
 }
 
-.listing-container.about section {
+.aboutSection {
   margin-top: 80px;
   h3 {
     font-size: 21px;
@@ -39,14 +34,14 @@
   }
 }
 
-.listing-container.about .row {
+.aboutRow {
   margin: 30px 0;
   display: flex;
   @media screen and (max-width: 800px) {
     display: block;
   }
 
-  .image-container {
+  .imageContainer {
     width: 310px;
     display: block;
     flex-shrink: 0;
@@ -60,7 +55,7 @@
   }
 }
 
-.partners-list {
+.partnersList {
   margin: 30px -20px 60px;
   display: flex;
   flex-wrap: wrap;

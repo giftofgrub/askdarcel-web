@@ -7,15 +7,19 @@
 .list {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-left: -10px;
   margin-right: -10px;
 }
 
 .item {
-  flex: 1 1 25%;
+  flex: 1 1 33.32%;
   min-width: 275px;
-  max-width: 50%;
+  max-width: 33.32%;
+  @media screen and ( max-width: 920px ) {
+    flex: 1 1 50%;
+    max-width: 50%;
+  }
   @media screen and ( max-width: 600px ) {
     max-width: 100%;
   }
@@ -42,6 +46,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
   min-height: 380px;
+  @media screen and ( max-width: 920px ) {
+    min-height: 260px;
+  }
   @media screen and ( max-width: 600px ) {
     min-height: 280px;
   }
@@ -75,6 +82,9 @@
   color: #202020;
   display: flex;
   flex-direction: column;
+  @media screen and ( max-width: 767px ) {
+    font-size: 20px;
+  }
   @media screen and ( max-width: 600px ) {
     font-size: 17px;
   }
@@ -105,6 +115,7 @@
 .cardPartnerImage {
   height: 50px;
   width: auto;
+  max-width: 100%;
   display: block;
   object-fit: contain;
   margin-top: 7px;

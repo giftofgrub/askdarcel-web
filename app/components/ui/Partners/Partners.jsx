@@ -7,7 +7,6 @@ import JDCLogo from './assets/JDCLogo.png';
 import BenetechLogo from './assets/BenetechLogo.png';
 import SFFamiliesLogo from './assets/SFFamiliesLogo.png';
 import BridgeLogo from './assets/BridgeLogo.png';
-import LarkinLogo from './assets/LarkinLogo.png';
 
 const Partners = () => (
   <div className="partners">
@@ -45,12 +44,6 @@ const Partners = () => (
       <li>
         <header />
         <img src={BridgeLogo} alt="Bridge" />
-      </li>
-      <li>
-        <header />
-        <a href="https://larkinstreetyouth.org/" rel="noopener norefferer">
-          <img src={LarkinLogo} alt="Larkin Street Youth Services" />
-        </a>
       </li>
     </ul>
     <Link to="/about">View all our strategic partners</Link>
