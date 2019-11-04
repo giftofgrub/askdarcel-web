@@ -12,6 +12,7 @@ fixture`Edit Resource`
 
 async function testEditTextProperty(t, showPageSelector, editPageSelector, newValue) {
   await t
+    .navigateTo(editResourcePage.url(1))
     .typeText(editPageSelector, newValue, { replace: true })
     .click(editResourcePage.saveButton)
     .expect(showPageSelector.textContent)
