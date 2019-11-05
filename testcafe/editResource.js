@@ -25,6 +25,8 @@ test('Edit resource name', async t => {
 
 
 test('Edit resource address', async t => {
+  await t.navigateTo(editResourcePage.url(1))
+
   const newProps = {
     name: 'Main HQ',
     address1: '123 Fake St.',
@@ -70,6 +72,7 @@ test('Edit resource phone number', async t => {
   // Make edits
   const phone = EditResourcePage.getPhone(0);
   await t
+    .navigateTo(editResourcePage.url(1))
     .typeText(phone.number, newNumber, { replace: true })
     .typeText(phone.serviceType, newServiceType, { replace: true })
     .click(editResourcePage.saveButton);
@@ -87,7 +90,9 @@ test('Add resource phone number', async t => {
   const newServiceType = 'Added number';
 
   // Wait for page to load before counting phone numbers by using hover action.
-  await t.hover(resourcePage.phones);
+  await t
+    .navigateTo(editResourcePage.url(1))
+    .hover(resourcePage.phones);
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
   // Make edits
@@ -111,6 +116,7 @@ test('Delete resource phone number', async t => {
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
   await t
+    .navigateTo(editResourcePage.url(1))
     .click(editResourcePage.deletePhoneButton)
     .click(editResourcePage.saveButton);
   await t
@@ -149,7 +155,9 @@ test('Add Resource Note', async t => {
   const newNote = 'A new note has been added';
 
   // Wait for page to load before counting phone Notes by using hover action.
-  await t.hover(resourcePage.noteContainer);
+  await t
+    .navigateTo(editResourcePage.url(1))
+    .hover(resourcePage.noteContainer);
   const originalCount = await resourcePage.notes.with({ boundTestRun: t }).count;
 
   // Make edits
@@ -171,7 +179,9 @@ test('Edit Resource Note', async t => {
   const newNote = 'Modified Note Text';
 
   // Wait for page to load before counting phone Notes by using hover action.
-  await t.hover(resourcePage.notes);
+  await t
+    .navigateTo(editResourcePage.url(1))
+    .hover(resourcePage.notes);
 
   // Make edits
   const note = EditResourcePage.getResourceNote(0);
@@ -186,7 +196,9 @@ test('Edit Resource Note', async t => {
 
 test('Delete Resource Note', async t => {
   // Wait for page to load before counting phone Notes by using hover action.
-  await t.hover(resourcePage.notes);
+  await t
+    .navigateTo(editResourcePage.url(1))
+    .hover(resourcePage.notes);
   const originalCount = await resourcePage.notes.with({ boundTestRun: t }).count;
 
   await t
@@ -212,7 +224,9 @@ test('Add new service', async t => {
   };
 
   // Wait for page to load by using hover action.
-  await t.hover(resourcePage.editButton);
+  await t
+    .navigateTo(editResourcePage.url(1))
+    .hover(resourcePage.editButton);
 
   // Navigate to edit page
 
@@ -293,6 +307,7 @@ test('Add new service', async t => {
 test('Delete a service', async t => {
   // Wait for page to load before counting services by using hover action.
   await t
+    .navigateTo(editResourcePage.url(1))
     .hover(resourcePage.editButton);
 
   // Count the number of services
