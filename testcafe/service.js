@@ -48,10 +48,6 @@ test('Confirm Page Loads with Information', async t => {
     .expect(servicePage.details.exists)
     .ok()
 
-  // Edit button should exist
-    .expect(servicePage.editButton.exists)
-    .ok()
-
   // Print button should exist
     .expect(servicePage.printButton.exists)
     .ok()
@@ -71,8 +67,7 @@ test('Confirm Service Schedule Day Can Be Added', async t => {
   await modifySheduleTime(t);
 
   await t
-    .navigateTo(servicePage.url(serviceId))
-    .hover(servicePage.editButton)
+    .navigateTo(editResourcePage.url(1))
     .expect(servicePage.schedule.count)
     .eql(originalScheduleDayCount + 1);
 });
@@ -80,7 +75,7 @@ test('Confirm Service Schedule Day Can Be Added', async t => {
 // TODO: Uncomment with the completion of ISSUE #594
 test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
   // Wait for page to load before counting services by using hover action.
-  await t.hover(servicePage.editButton);
+  await t.navigateTo(editResourcePage.url(1))
 
   // Count the number of schedule days
   const originalScheduleDayCount = await servicePage.schedule.with({ boundTestRun: t }).count;
@@ -94,8 +89,7 @@ test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
   await modifySheduleTime(t, 'remove');
 
   await t
-    .navigateTo(servicePage.url(serviceId))
-    .hover(servicePage.editButton)
+    .navigateTo(editResourcePage.url(1))
     .expect(servicePage.schedule.count)
     .eql(originalScheduleDayCount - 1);
 });
