@@ -55,6 +55,8 @@ test('Edit resource address', async t => {
       (_t, prop) => _t.expect(resourcePage.address.textContent).contains(newProps[prop]),
       t,
     );
+  
+  await t.navigateTo(editResourcePage.url(1))
 
   // Check visibility of edits on edit page
   await Object.keys(newProps).reduce(
