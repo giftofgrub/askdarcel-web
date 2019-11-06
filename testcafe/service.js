@@ -75,7 +75,7 @@ test('Confirm Service Schedule Day Can Be Added', async t => {
 // TODO: Uncomment with the completion of ISSUE #594
 test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
   // Wait for page to load before counting services by using hover action.
-  await t.navigateTo(editResourcePage.url(1))
+  await t.hover(servicePage.schedule);
 
   // Count the number of schedule days
   const originalScheduleDayCount = await servicePage.schedule.with({ boundTestRun: t }).count;
@@ -84,7 +84,6 @@ test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
 
   await t
     .navigateTo(servicePage.url(serviceId))
-    .hover(servicePage.editButton);
 
   await modifySheduleTime(t, 'remove');
 
