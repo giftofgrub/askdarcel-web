@@ -13,7 +13,7 @@ fixture`Service Page`
 
 const modifySheduleTime = async (t, action = 'add') => {
   // Navigate to edit page
-  await t.navigateTo(editResourcePage.url(1))
+  await t.navigateTo(editResourcePage.url(1));
 
   // Get the correct service and it's schedule
   const service = EditResourcePage.getService(serviceId);
@@ -83,7 +83,7 @@ test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
   await modifySheduleTime(t);
 
   await t
-    .navigateTo(servicePage.url(serviceId))
+    .navigateTo(servicePage.url(serviceId));
 
   await modifySheduleTime(t, 'remove');
 

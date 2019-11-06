@@ -25,7 +25,7 @@ test('Edit resource name', async t => {
 
 
 test('Edit resource address', async t => {
-  await t.navigateTo(editResourcePage.url(1))
+  await t.navigateTo(editResourcePage.url(1));
 
   const newProps = {
     name: 'Main HQ',
@@ -55,8 +55,8 @@ test('Edit resource address', async t => {
       (_t, prop) => _t.expect(resourcePage.address.textContent).contains(newProps[prop]),
       t,
     );
-  
-  await t.navigateTo(editResourcePage.url(1))
+
+  await t.navigateTo(editResourcePage.url(1));
 
   // Check visibility of edits on edit page
   await Object.keys(newProps).reduce(
@@ -182,7 +182,7 @@ test('Edit Resource Note', async t => {
   const newNote = 'Modified Note Text';
 
   // Wait for page to load before counting phone Notes by using hover action.
-  await t.navigateTo(editResourcePage.url(1))
+  await t.navigateTo(editResourcePage.url(1));
 
   // Make edits
   const note = EditResourcePage.getResourceNote(0);
@@ -224,7 +224,7 @@ test('Add new service', async t => {
   };
 
   // Wait for page to load by using hover action.
-  await t.navigateTo(editResourcePage.url(1))
+  await t.navigateTo(editResourcePage.url(1));
 
   // Navigate to edit page
 
