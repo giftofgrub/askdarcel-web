@@ -6,7 +6,7 @@ const editResourcePage = new EditResourcePage();
 
 // Define service id to navigate to
 // Tests depend on service id
-const serviceId = 5;
+const serviceId = 1;
 fixture`Service Page`
   // TODO: Dynamically find a service to test against
   .page(servicePage.url(serviceId));
