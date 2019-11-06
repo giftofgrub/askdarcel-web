@@ -92,7 +92,6 @@ test('Add resource phone number', async t => {
   // Wait for page to load before counting phone numbers by using hover action.
   await t
     .navigateTo(editResourcePage.url(1))
-    .hover(resourcePage.phones);
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
   // Make edits
@@ -155,9 +154,8 @@ test('Add Resource Note', async t => {
   const newNote = 'A new note has been added';
 
   // Wait for page to load before counting phone Notes by using hover action.
-  await t
-    .navigateTo(editResourcePage.url(1))
-    .hover(resourcePage.noteContainer);
+  await t.navigateTo(editResourcePage.url(1))
+
   const originalCount = await resourcePage.notes.with({ boundTestRun: t }).count;
 
   // Make edits
@@ -179,9 +177,7 @@ test('Edit Resource Note', async t => {
   const newNote = 'Modified Note Text';
 
   // Wait for page to load before counting phone Notes by using hover action.
-  await t
-    .navigateTo(editResourcePage.url(1))
-    .hover(resourcePage.notes);
+  await t.navigateTo(editResourcePage.url(1))
 
   // Make edits
   const note = EditResourcePage.getResourceNote(0);
@@ -196,9 +192,7 @@ test('Edit Resource Note', async t => {
 
 test('Delete Resource Note', async t => {
   // Wait for page to load before counting phone Notes by using hover action.
-  await t
-    .navigateTo(editResourcePage.url(1))
-    .hover(resourcePage.notes);
+  await t.navigateTo(editResourcePage.url(1))
   const originalCount = await resourcePage.notes.with({ boundTestRun: t }).count;
 
   await t
@@ -224,9 +218,7 @@ test('Add new service', async t => {
   };
 
   // Wait for page to load by using hover action.
-  await t
-    .navigateTo(editResourcePage.url(1))
-    .hover(resourcePage.editButton);
+  await t.navigateTo(editResourcePage.url(1))
 
   // Navigate to edit page
 
@@ -306,9 +298,7 @@ test('Add new service', async t => {
 
 test('Delete a service', async t => {
   // Wait for page to load before counting services by using hover action.
-  await t
-    .navigateTo(editResourcePage.url(1))
-    .hover(resourcePage.editButton);
+  await t.navigateTo(editResourcePage.url(1))
 
   // Count the number of services
   const originalServiceCount = await resourcePage.services.with({ boundTestRun: t }).count;
