@@ -21,6 +21,7 @@ const modifySheduleTime = async (t, action = 'add') => {
 
   if (action === 'add') {
     await t
+      .navigateTo(editResourcePage.url(1))
       .click(schedule.tuesday.addButton)
       .typeText(schedule.tuesday.lastStart, '17:00')
       .typeText(schedule.tuesday.lastEnd, '18:00');
