@@ -12,9 +12,8 @@ fixture`Service Page`
   .page(servicePage.url(serviceId));
 
 const modifySheduleTime = async (t, action = 'add') => {
-  // Click edit service button
-  await t
-    .click(servicePage.editButton);
+  // Navigate to edit page
+  await t.navigateTo(editResourcePage.url(1))
 
   // Get the correct service and it's schedule
   const service = EditResourcePage.getService(serviceId);
