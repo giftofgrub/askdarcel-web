@@ -64,7 +64,7 @@ test('Confirm Service Schedule Day Can Be Added', async t => {
   // Count the number of schedule days
   const originalScheduleDayCount = await servicePage.schedule.with({ boundTestRun: t }).count;
 
-  await modifySheduleTime(t);
+  await modifySheduleTime(t, 'add');
 
   await t
     .navigateTo(editResourcePage.url(1))
