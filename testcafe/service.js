@@ -81,6 +81,7 @@ test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
 
   // Count the number of schedule days
   const originalScheduleDayCount = await servicePage.schedule.with({ boundTestRun: t }).count;
+  console.log(originalScheduleDayCount);
 
   await modifySheduleTime(t);
 
