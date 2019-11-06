@@ -59,7 +59,7 @@ test('Confirm Page Loads with Information', async t => {
 
 test('Confirm Service Schedule Day Can Be Added', async t => {
   // Wait for page to load before counting services by using hover action.
-  await t.hover(servicePage.editButton);
+  await t.hover(servicePage.schedule);
 
   // Count the number of schedule days
   const originalScheduleDayCount = await servicePage.schedule.with({ boundTestRun: t }).count;

@@ -304,13 +304,14 @@ test('Add new service', async t => {
 
 test('Delete a service', async t => {
   // Wait for page to load before counting services by using hover action.
-  await t.navigateTo(editResourcePage.url(1))
+  await t.hover(resourcePage.services);
 
   // Count the number of services
   const originalServiceCount = await resourcePage.services.with({ boundTestRun: t }).count;
 
   // Navigate to edit page and delete the last service
   await t
+    .navigateTo(editResourcePage.url(1))
     .setNativeDialogHandler(() => true)
     .click(editResourcePage.removeFirstServiceButton);
 
