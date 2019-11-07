@@ -3,7 +3,8 @@ import EditPage from './EditPage';
 
 
 export default class EditResourcePage extends EditPage {
-  static url(resourceId) {
-    return `${config.baseUrl}/organizations/${resourceId}/edit`;
+  constructor() {
+    super();
+    this.url = resourceId => `${config.baseUrl}/organizations/${resourceId}/edit`;
   }
 }

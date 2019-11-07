@@ -11,7 +11,6 @@ export default class ServicePage {
     this.description = baseSelector.find('.listing--main--left--about div');
     this.details = baseSelector.find('.listing--main--left--details');
     this.directionsButton = baseSelector.find('.action-sidebar--directions');
-    this.editButton = baseSelector.find('.action-sidebar--edit');
     this.email = baseSelector.find('.listing--main--left--contact tr').nth(1).find('td');
     this.name = baseSelector.find('.listing--main--left > header h1');
     this.note = this.details.find('tbody td');
