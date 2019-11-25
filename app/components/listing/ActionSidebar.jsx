@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { getResourceActions } from 'utils/ResourceActions';
 import { images } from '../../assets';
 
@@ -40,14 +40,14 @@ class ListPageSidebar extends React.Component {
         {actions.map(action => (
           <li key={action.name}>
             {
-              action.to || action.handler
+              action.to
                 ? (
                   <Link to={action.to} onClick={action.handler} className={`action-sidebar--${action.name.toLowerCase()}`}>
                     { renderButtonContent(action) }
                   </Link>
                 )
                 : (
-                  <a href={action.link} rel="noopener noreferrer" target="_blank" className={`action-sidebar--${action.name.toLowerCase()}`}>
+                  <a href={action.link} onClick={action.handler} rel="noopener noreferrer" target="_blank" className={`action-sidebar--${action.name.toLowerCase()}`}>
                     { renderButtonContent(action) }
                   </a>
                 )
