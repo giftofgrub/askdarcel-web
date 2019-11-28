@@ -1,6 +1,6 @@
 import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
 import Navigation from './ui/Navigation/Navigation';
@@ -14,6 +14,7 @@ import HamburgerMenu from './ui/HamburgerMenu';
 import PopUpMessage from './ui/PopUpMessage';
 import { User } from '../models';
 import Routes from '../routes';
+import MetaImage from '../assets/img/sfsg-preview.png';
 
 const coordsInSanFrancisco = coords => {
   // These are conservative bounds, extending into the ocean, the Bay, and Daly
@@ -140,7 +141,28 @@ class App extends Component {
     return (
       <div id={outerContainerId}>
         <Helmet>
-          <title>{ isSFServiceGuideSite() ? 'SF Service Guide' : 'AskDarcel' }</title>
+          { isSFServiceGuideSite() ? (
+            <>
+              <title>SF Service Guide</title>
+              <meta property="og:url" content="https://sfserviceguide.org" />
+              <meta property="og:title" content="SF Service Guide" />
+            </>
+          ) : (
+            <>
+              <title>AskDarcel</title>
+              <meta property="og:url" content="https://askdarcel.org" />
+              <meta property="og:title" content="AskDarcel" />
+            </>
+          ) }
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@sheltertechorg" />
+          <meta property="og:description" content="Get guided help finding food, housing, health resources and more in San Francisco" />
+          <meta property="og:image" content={MetaImage} />
+          <meta property="og:type" content="website" />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
         </Helmet>
         {config.INTERCOM_APP_ID && <Intercom appID={config.INTERCOM_APP_ID} />}
         <HamburgerMenu
