@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -22,7 +22,7 @@ import Notes from 'components/listing/Notes';
 import MOHCDBadge from 'components/listing/MOHCDBadge';
 import Loader from 'components/ui/Loader';
 import * as dataService from '../utils/DataService';
-import { isSFServiceGuideSite } from '../utils/whitelabel';
+import { getSiteTitle } from '../utils/whitelabel';
 
 const getResourceLocation = resource => {
   const { address } = resource;
@@ -50,7 +50,7 @@ class BaseOrganizationListingPage extends React.Component {
   }
 
   loadResourceFromServer() {
-    const { params: { id } } = this.props;
+    const { match: { params: { id } } } = this.props;
     dataService.getResource(id).then(resource => {
       this.setState({ resource });
     });
@@ -88,14 +88,7 @@ class BaseOrganizationListingPage extends React.Component {
       <div>
         <Helmet>
           <title>
-            {resource.name}
-              |
-            {' '}
-            {
-              isSFServiceGuideSite()
-                ? 'SF Service Guide'
-                : 'AskDarcel'
-            }
+            {`${resource.name} | ${getSiteTitle()}`}
           </title>
           <meta name="description" content={resource.long_description} />
         </Helmet>
@@ -186,8 +179,10 @@ BaseOrganizationListingPage.defaultProps = {
 };
 
 BaseOrganizationListingPage.propTypes = {
-  location: PropTypes.shape({
-    query: PropTypes.shape({ resourceid: PropTypes.string }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   // userLocation is not required because will be lazy-loaded after initial render.
   userLocation: PropTypes.shape({

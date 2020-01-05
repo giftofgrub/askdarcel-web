@@ -11,8 +11,8 @@ fixture`Edit Resource`
 
 
 async function testEditTextProperty(t, showPageSelector, editPageSelector, newValue) {
-  await resourcePage.clickEditButton(t);
   await t
+    .navigateTo(editResourcePage.url(1))
     .typeText(editPageSelector, newValue, { replace: true })
     .click(editResourcePage.saveButton)
     .expect(showPageSelector.textContent)
@@ -25,6 +25,8 @@ test('Edit resource name', async t => {
 
 
 test('Edit resource address', async t => {
+  await t.navigateTo(editResourcePage.url(1));
+
   const newProps = {
     name: 'Main HQ',
     address1: '123 Fake St.',
@@ -40,7 +42,6 @@ test('Edit resource address', async t => {
   const notVisibleOnShowPage = ['address3', 'address4', 'country'];
 
   // Make edits
-  await resourcePage.clickEditButton(t);
   await Object.keys(newProps).reduce(
     (_t, prop) => _t.typeText(editResourcePage.address[prop], newProps[prop], { replace: true }),
     t,
@@ -55,8 +56,9 @@ test('Edit resource address', async t => {
       t,
     );
 
+  await t.navigateTo(editResourcePage.url(1));
+
   // Check visibility of edits on edit page
-  await resourcePage.clickEditButton(t);
   await Object.keys(newProps).reduce(
     (_t, prop) => _t.expect(editResourcePage.address[prop].value).eql(newProps[prop]),
     t,
@@ -70,9 +72,9 @@ test('Edit resource phone number', async t => {
   const newServiceType = 'Main number';
 
   // Make edits
-  await resourcePage.clickEditButton(t);
   const phone = EditResourcePage.getPhone(0);
   await t
+    .navigateTo(editResourcePage.url(1))
     .typeText(phone.number, newNumber, { replace: true })
     .typeText(phone.serviceType, newServiceType, { replace: true })
     .click(editResourcePage.saveButton);
@@ -94,8 +96,9 @@ test('Add resource phone number', async t => {
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
   // Make edits
-  await resourcePage.clickEditButton(t);
-  await t.click(editResourcePage.addPhoneButton);
+  await t
+    .navigateTo(editResourcePage.url(1))
+    .click(editResourcePage.addPhoneButton);
   const phone = EditResourcePage.getPhone(-1);
   await t
     .typeText(phone.number, newNumber, { replace: true })
@@ -114,8 +117,8 @@ test('Delete resource phone number', async t => {
   await t.hover(resourcePage.phones);
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
-  await resourcePage.clickEditButton(t);
   await t
+    .navigateTo(editResourcePage.url(1))
     .click(editResourcePage.deletePhoneButton)
     .click(editResourcePage.saveButton);
   await t
@@ -154,12 +157,14 @@ test('Add Resource Note', async t => {
   const newNote = 'A new note has been added';
 
   // Wait for page to load before counting phone Notes by using hover action.
-  await t.hover(resourcePage.noteContainer);
+  await t.hover(resourcePage.notes);
+
   const originalCount = await resourcePage.notes.with({ boundTestRun: t }).count;
 
   // Make edits
-  await resourcePage.clickEditButton(t);
-  await t.click(editResourcePage.addNoteButton);
+  await t
+    .navigateTo(editResourcePage.url(1))
+    .click(editResourcePage.addNoteButton);
   // create
   const note = EditResourcePage.getResourceNote(-1);
   await t
@@ -177,10 +182,9 @@ test('Edit Resource Note', async t => {
   const newNote = 'Modified Note Text';
 
   // Wait for page to load before counting phone Notes by using hover action.
-  await t.hover(resourcePage.notes);
+  await t.navigateTo(editResourcePage.url(1));
 
   // Make edits
-  await resourcePage.clickEditButton(t);
   const note = EditResourcePage.getResourceNote(0);
   await t
     .typeText(note.content, newNote, { replace: true })
@@ -196,8 +200,8 @@ test('Delete Resource Note', async t => {
   await t.hover(resourcePage.notes);
   const originalCount = await resourcePage.notes.with({ boundTestRun: t }).count;
 
-  await resourcePage.clickEditButton(t);
   await t
+    .navigateTo(editResourcePage.url(1))
     .click(editResourcePage.deleteNoteButton)
     .click(editResourcePage.saveButton);
   await t
@@ -220,10 +224,9 @@ test('Add new service', async t => {
   };
 
   // Wait for page to load by using hover action.
-  await t.hover(resourcePage.editButton);
+  await t.navigateTo(editResourcePage.url(1));
 
   // Navigate to edit page
-  await resourcePage.clickEditButton(t);
 
   // Wait for page to load before counting services by using hover action.
   await t.hover(editResourcePage.addServiceButton);
@@ -301,15 +304,14 @@ test('Add new service', async t => {
 
 test('Delete a service', async t => {
   // Wait for page to load before counting services by using hover action.
-  await t
-    .hover(resourcePage.editButton);
+  await t.hover(resourcePage.services);
 
   // Count the number of services
   const originalServiceCount = await resourcePage.services.with({ boundTestRun: t }).count;
 
   // Navigate to edit page and delete the last service
-  await resourcePage.clickEditButton(t);
   await t
+    .navigateTo(editResourcePage.url(1))
     .setNativeDialogHandler(() => true)
     .click(editResourcePage.removeFirstServiceButton);
 

@@ -10,15 +10,13 @@
 .list {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
   margin-left: -10px;
   margin-right: -10px;
 }
 
 .item {
-  flex: 1 1 20%;
-  max-width: 20%;
-  min-width: 170px;
+  flex: 1 1 33%;
+  max-width: 33.33%;
   @media screen and ( max-width: 800px ) {
     flex: 0 0 100%;
     width: 100%;
@@ -27,68 +25,35 @@
 }
 
 .cardLink {
-  color: #202020;
+  color: #0025E4;
   display: block;
-
-  &:active, &:focus, &:hover {
-    color: #202020; // Reset global link style
-  }
 }
 
 .card {
-  align-items: center;
   background: $color-white;
   border-radius: 3px;
   display: flex;
-  flex-flow: column nowrap;
-  font-size: 15px;
-  height: 100%;
-  justify-content: center;
-  padding: 15px 42px;
   transition: all 200ms ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
-  min-height: 150px;
+  padding: 15px 20px;
   @media screen and ( max-width: 800px ) {
     min-height: 0;
-    justify-content: flex-start;
     margin: 5px 10px;
-    align-items: stretch;
-    padding: 18px 24px;
   }
 
   .cardLink:focus &, .cardLink:hover & {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
   .cardLink:active & {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   }
 }
 
-.cardIconWrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 3 3 0;
-  justify-content: center;
+.cardText {
+  font-size: 18px;
   @media screen and ( max-width: 800px ) {
-    display: none;
-  }
-}
-
-.cardIcon {
-  object-fit: contain;
-}
-
-.cardTextWrapper {
-  flex: 2 2 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  @media screen and ( max-width: 800px ) {
-    text-align: left;
-    justify-content: flex-start;
-    flex-direction: row;
+    font-size: 15px;
   }
 }

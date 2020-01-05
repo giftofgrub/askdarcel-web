@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import * as ax from 'axios';
+import qs from 'qs';
 
 import Footer from 'components/ui/Footer/Footer';
 import Partners from 'components/ui/Partners/Partners';
-import heroBackground from 'assets/img/HomePage/hero-background.svg';
-
 import CategoryList from './components/CategoryList';
 import HomePageHero from './components/HomePageHero';
 import SearchBar from './components/SearchBar';
@@ -23,7 +22,7 @@ VerticalSpacing.propTypes = {
 };
 
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   state = {
     categories: [],
     resourceCount: undefined,
@@ -37,11 +36,10 @@ export default class HomePage extends React.Component {
 
   submitSearch = () => {
     const { searchValue } = this.state;
+    const { history } = this.props;
     if (searchValue) {
-      browserHistory.push({
-        pathname: '/search',
-        query: { query: searchValue },
-      });
+      const query = qs.stringify({ query: searchValue });
+      history.push(`/search?${query}`);
     }
   }
 
@@ -64,19 +62,18 @@ export default class HomePage extends React.Component {
     return (
       <div className="find-page">
         <HomePageHero
-          title="Find social services in San Francisco"
-          description="Discover housing, homelessness, legal, and many more free and reduced cost social services near you"
-          imageURL={heroBackground}
+          title="Welcome to the SF Service Guide"
+          description="Find food, housing, health resources and more in San Francisco."
         />
         <Section
-          title="Guided Pathways"
-          description="Need help but not sure where to start? Try one of our guided pathways."
+          title="Resource Guides"
+          description="Get guided help with many of the most common issues people are facing in San Francisco."
         >
           <Guidelist />
         </Section>
         <Section
           title="Browse Directory"
-          description="Looking for a specific organization? Search the directory or browse by category."
+          description="Search the directory for a specific social service provider or browse by category."
         >
           <SearchBar
             placeholder={`Search ${resourceCount || ''} resources in San Francisco`}
@@ -92,3 +89,5 @@ export default class HomePage extends React.Component {
     );
   }
 }
+
+export default withRouter(HomePage);

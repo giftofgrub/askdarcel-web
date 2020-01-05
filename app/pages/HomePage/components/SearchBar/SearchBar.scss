@@ -18,21 +18,17 @@ $row-height: 60px;
 
 .textInput {
   background:
-    url("../../../../assets/img/ic-search-blue.svg") center left 15px no-repeat,
-    #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    url("../../../../assets/img/ic-search-blue.svg") center left 15px no-repeat;
   border-radius: 3px;
+  border: 1px solid #e0e0e0;
   height: $row-height;
   padding-left: 45px;
 
   &::placeholder {
     font-style: normal;
   }
-  &:focus, &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  }
-  &:active {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  &:active, &:focus {
+    border: 1px solid $color-brand;
   }
 }
 
@@ -43,15 +39,14 @@ $row-height: 60px;
 .submit {
   background-color: $color-brand;
   border-radius: 3px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-size: 16px;
   height: $row-height;
   width: 180px;
   &:focus, &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   &:active {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   }
   @media screen and ( max-width: 600px ) {
     display: none;

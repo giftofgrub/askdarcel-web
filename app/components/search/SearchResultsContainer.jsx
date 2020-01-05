@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connectStateResults } from 'react-instantsearch/connectors';
 import { Loader } from 'components/ui';
 import Filtering from './Filtering';
@@ -38,14 +38,6 @@ No results have been found for
           {' '}
           {searchState.query}
         </p>
-        <div className="add-resource">
-            Can&apos;t find the organization you&apos;re looking for?
-          <Link to="/organizations/new" className="add-resource-button">
-            <i className="material-icons">add_circle</i>
-            {' '}
-              Add an organization
-          </Link>
-        </div>
       </div>
     );
   } else if (searchResults) {

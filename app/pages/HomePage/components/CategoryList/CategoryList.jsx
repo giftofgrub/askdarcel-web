@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-
-import { images } from '../../../../assets';
+import { Link } from 'react-router-dom';
 
 import styles from './CategoryList.scss';
 
@@ -16,18 +14,9 @@ const CategoryType = PropTypes.shape({
 const CategoryCard = ({ category }) => (
   <Link className={styles.cardLink} to={categoryURL(category.name)}>
     <div className={styles.card}>
-      <div className={styles.cardIconWrapper}>
-        <img
-          className={styles.cardIcon}
-          src={images.icon(category.name)}
-          alt={category.name}
-        />
-      </div>
-      <div className={styles.cardTextWrapper}>
-        <div className={styles.cardText}>
-          {category.name}
-        </div>
-      </div>
+      <p className={styles.cardText}>
+        {category.name}
+      </p>
     </div>
   </Link>
 );

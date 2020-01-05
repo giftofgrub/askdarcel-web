@@ -8,10 +8,12 @@ import ImgEviction from './assets/EvictionPrevention.jpg';
 import ImgEvictionPartner from './assets/logos/EDC.png';
 import ImgAffordableHousing from './assets/AffordableHousing.jpg';
 import ImgAffordableHousingPartner from './assets/logos/homeownershipsf.png';
+import ImgFamilyHomelessness from './assets/FamilyHomelessness.jpg';
 import ImgYouthHomelessness from './assets/YouthHomelessness.jpg';
 import ImgYouthHomelessnessPartner from './assets/logos/larkin.png';
 import ImgAdultHomelessness from './assets/AdultHomelessness.jpg';
 import ImgAdultHomelessnessPartner from './assets/logos/JDC.png';
+import ImgFamilyHomelessnessPartner from './assets/logos/compass.png';
 
 function typeform(event, link) {
   const typeformReference = typeformEmbed.makePopup(
@@ -65,7 +67,7 @@ const GuideList = () => (
       <li className={styles.item}>
         <GuideCard
           name="Eviction Prevention"
-          link="https://sheltertech.typeform.com/to/i92DO4"
+          link="https://sheltertech.typeform.com/to/AuWYAN"
           img={ImgEviction}
           partner="Eviction Defense Collaborative"
           partnerImg={ImgEvictionPartner}
@@ -82,6 +84,15 @@ const GuideList = () => (
       </li>
       <li className={styles.item}>
         <GuideCard
+          name="Family Homelessness"
+          link="https://sheltertech.typeform.com/to/GFEzl2"
+          img={ImgFamilyHomelessness}
+          partner="Compass Family Services"
+          partnerImg={ImgFamilyHomelessnessPartner}
+        />
+      </li>
+      <li className={styles.item}>
+        <GuideCard
           name="Youth Homelessness"
           link="https://sheltertech.typeform.com/to/mXv584"
           img={ImgYouthHomelessness}
@@ -92,7 +103,7 @@ const GuideList = () => (
       <li className={styles.item}>
         <GuideCard
           name="Adult Homelessness"
-          link="https://rachelpoonsiriwong.typeform.com/to/mXv584"
+          link="https://sheltertech.typeform.com/to/KXi3Pp"
           img={ImgAdultHomelessness}
           partner="Homeless Advocacy Project"
           partnerImg={ImgAdultHomelessnessPartner}

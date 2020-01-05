@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import * as Sentry from '@sentry/browser';
-import configureStore from './store/configureStore';
-import routes from './routes';
+import configureStore, { history } from './store/configureStore';
 import config from './config';
+import App from './components/App';
+import ScrollToTop from './components/layout/ScrollToTop';
 
 require('instantsearch.css/themes/reset.css');
 require('./styles/main.scss');
@@ -21,7 +22,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
 const googleAnalyticsId = (NODE_ENV === 'production' || window.location.host === 'www.askdarcel.org') ? 'UA-116318550-1' : 'UA-116318550-2';
 
 ReactGA.initialize(googleAnalyticsId);
@@ -33,8 +33,12 @@ history.listen(loc => {
 
 ReactDOM.render((
   <Provider store={store} key="provider">
-    <Router history={history}>
-      {routes}
-    </Router>
+    <ConnectedRouter history={history}>
+      <ScrollToTop>
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
+      </ScrollToTop>
+    </ConnectedRouter>
   </Provider>
 ), document.getElementById('root'));

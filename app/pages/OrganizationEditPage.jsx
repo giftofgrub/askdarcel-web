@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { withRouter, browserHistory } from 'react-router';
+import { Prompt, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 
 import { Loader } from 'components/ui';
@@ -11,6 +11,7 @@ import EditNotes from '../components/edit/EditNotes';
 import EditSchedule from '../components/edit/EditSchedule';
 import EditPhones from '../components/edit/EditPhones';
 import EditSidebar from '../components/edit/EditSidebar';
+import { buildScheduleDays } from '../components/edit/ProvidedService';
 import * as dataService from '../utils/DataService';
 
 import { withPopUpMessages } from '../actions/popUpMessageActions';
@@ -75,70 +76,6 @@ function updateCollectionObject(object, id, path, promises) {
     ),
   );
 }
-
-/** Build UI state schedule from API schedule.
- *
- * The difference between the schedule that comes from the API and the schedule
- * that is saved as React UI state is that the UI state schedule's schema groups
- * ScheduleDays by day of week. This allows us to represent blank ScheduleDays
- * when a new, blank time is added but before an open time or a close time is
- * set. The API schedule schema does not support having a ScheduleDay that has
- * no open and close time but that is attached to a day of week. This feature is
- * required for the UI because the blank time needs to appear under a day of
- * week before an open and close time is set.
- */
-const buildScheduleDays = schedule => {
-  const scheduleId = schedule ? schedule.id : null;
-  const currSchedule = {};
-  let finalSchedule = {};
-
-  const is24Hours = {
-    Monday: false,
-    Tuesday: false,
-    Wednesday: false,
-    Thursday: false,
-    Friday: false,
-    Saturday: false,
-    Sunday: false,
-  };
-
-  const tempSchedule = {
-    Monday: [{ opens_at: null, closes_at: null, scheduleId }],
-    Tuesday: [{ opens_at: null, closes_at: null, scheduleId }],
-    Wednesday: [{ opens_at: null, closes_at: null, scheduleId }],
-    Thursday: [{ opens_at: null, closes_at: null, scheduleId }],
-    Friday: [{ opens_at: null, closes_at: null, scheduleId }],
-    Saturday: [{ opens_at: null, closes_at: null, scheduleId }],
-    Sunday: [{ opens_at: null, closes_at: null, scheduleId }],
-  };
-
-  if (schedule) {
-    schedule.schedule_days.forEach(day => {
-      const currDay = day.day;
-      if (!is24Hours[currDay]) {
-        // Check to see if any of the hour pairs for the day
-        // indicate the resource/service is open 24 hours
-        // if there is a pair only have that in the day obj
-        if (day.opens_at === 0 && day.closes_at === 2359) {
-          is24Hours[currDay] = true;
-          // Since this record already exists in our DB, we only need the id
-          // scheduleID is needed when creating no data
-          currSchedule[currDay] = [{ opens_at: 0, closes_at: 2359, id: day.id }];
-        } else {
-          Object.assign(day, { openChanged: false, closeChanged: false });
-          if (currSchedule[currDay]) {
-            currSchedule[day.day].unshift(day);
-          } else {
-            currSchedule[day.day] = [day];
-          }
-        }
-      }
-    });
-  }
-  finalSchedule = Object.assign({}, tempSchedule, currSchedule);
-  return finalSchedule;
-};
-export { buildScheduleDays };
 
 /**
  * Create a change request for a new object.
@@ -299,10 +236,6 @@ const prepSchedule = scheduleObj => {
   return newSchedule;
 };
 
-const handleCancel = () => {
-  browserHistory.goBack();
-};
-
 const deepClone = obj => JSON.parse(JSON.stringify(obj));
 
 class OrganizationEditPage extends React.Component {
@@ -323,7 +256,6 @@ class OrganizationEditPage extends React.Component {
     };
 
     this.certifyHAP = this.certifyHAP.bind(this);
-    this.routerWillLeave = this.routerWillLeave.bind(this);
     this.keepOnPage = this.keepOnPage.bind(this);
     this.handleResourceFieldChange = this.handleResourceFieldChange.bind(this);
     this.handleScheduleChange = this.handleScheduleChange.bind(this);
@@ -336,16 +268,8 @@ class OrganizationEditPage extends React.Component {
     this.sidebarAddService = this.sidebarAddService.bind(this);
   }
 
-  componentWillMount() {
-    const { route, router } = this.props;
-    router.setRouteLeaveHook(
-      route,
-      this.routerWillLeave,
-    );
-  }
-
   componentDidMount() {
-    const { location: { pathname }, params } = this.props;
+    const { location: { pathname }, match: { params } } = this.props;
     const splitPath = pathname.split('/');
     window.addEventListener('beforeunload', this.keepOnPage);
     if (splitPath[splitPath.length - 1] === 'new') {
@@ -471,14 +395,6 @@ class OrganizationEditPage extends React.Component {
     }
   }
 
-  routerWillLeave() {
-    const { inputsDirty, submitting } = this.state;
-    if (inputsDirty && !submitting) {
-      return 'Are you sure you want to leave? Any changes you have made will be lost.';
-    }
-    return null;
-  }
-
   createResource() {
     const {
       scheduleObj,
@@ -490,6 +406,7 @@ class OrganizationEditPage extends React.Component {
       email,
       address,
     } = this.state;
+    const { history } = this.props;
     const schedule = prepSchedule(scheduleObj);
     const newResource = {
       name,
@@ -511,7 +428,7 @@ class OrganizationEditPage extends React.Component {
       .then(response => {
         if (response.ok) {
           alert('Resource successfuly created. Thanks!');
-          response.json().then(res => browserHistory.push(`/organizations/${res.resources[0].resource.id}`));
+          response.json().then(res => history.push(`/organizations/${res.resources[0].resource.id}`));
         } else {
           Promise.reject(response);
         }
@@ -524,7 +441,7 @@ class OrganizationEditPage extends React.Component {
   }
 
   handleSubmit() {
-    const { showPopUpMessage } = this.props;
+    const { history, showPopUpMessage } = this.props;
     this.setState({ submitting: true });
     const {
       address,
@@ -604,7 +521,7 @@ class OrganizationEditPage extends React.Component {
 
     const that = this;
     Promise.all(promises).then(() => {
-      that.props.router.push(`/organizations/${that.state.resource.id}`);
+      history.push(`/organizations/${that.state.resource.id}`);
       showPopUpMessage({
         type: 'success',
         message: 'Successfully saved your changes.',
@@ -619,7 +536,7 @@ class OrganizationEditPage extends React.Component {
   }
 
   handleDeactivation(type, id) {
-    const { router } = this.props;
+    const { history } = this.props;
     let confirmMessage = null;
     let path = null;
     if (type === 'resource') {
@@ -643,7 +560,7 @@ class OrganizationEditPage extends React.Component {
             alert('Successful! \n \nIf this was a mistake, please let someone from the ShelterTech team know.');
             if (type === 'resource') {
               // Resource successfully deactivated. Redirect to home.
-              router.push({ pathname: '/' });
+              history.push({ pathname: '/' });
             } else {
               // Service successfully deactivated. Mark deactivated in local state.
               this.setState(state => {
@@ -841,11 +758,15 @@ If you&#39;d like to add formatting to descriptions, we support&nbsp;
 
   render() {
     const {
+      inputsDirty,
       newResource,
       resource,
       services,
       submitting,
     } = this.state;
+    const { history } = this.props;
+
+    const showPrompt = inputsDirty && !submitting;
 
     return (!resource && !newResource ? <Loader />
       : (
@@ -853,7 +774,7 @@ If you&#39;d like to add formatting to descriptions, we support&nbsp;
           <EditSidebar
             createResource={this.createResource}
             handleSubmit={this.handleSubmit}
-            handleCancel={handleCancel}
+            handleCancel={() => history.goBack()}
             handleDeactivation={this.handleDeactivation}
             resource={resource}
             submitting={submitting}
@@ -880,6 +801,10 @@ If you&#39;d like to add formatting to descriptions, we support&nbsp;
               </div>
             )}
           </div>
+          <Prompt
+            message="Are you sure you want to leave? Any changes you have made will be lost."
+            when={showPrompt}
+          />
         </div>
       )
     );
@@ -887,16 +812,15 @@ If you&#39;d like to add formatting to descriptions, we support&nbsp;
 }
 
 OrganizationEditPage.propTypes = {
-  // TODO: location is only ever used to get the resourceid; we should just pass
-  // in the resourceid directly as a prop
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  params: PropTypes.shape({
-    id: PropTypes.string,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }).isRequired,
   }).isRequired,
-  // TODO: Figure out what type router actually is
-  router: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.object.isRequired,
   showPopUpMessage: PropTypes.func.isRequired,
 };
 
