@@ -7,6 +7,21 @@ import { RelativeOpeningTime } from '../listing/RelativeOpeningTime';
 import './SearchEntry.scss';
 
 class SearchEntry extends Component {
+  renderAddressMetadata() {
+    const { hit } = this.props;
+    const { addresses = [] } = hit;
+    if (addresses.length === 0) {
+      return <span>No address found</span>;
+    }
+    if (addresses.length > 1) {
+      return <span>Multiple locations</span>;
+    }
+    if (addresses[0].address_1) {
+      return <span>{addresses[0].address_1}</span>;
+    }
+    return <span>No address found</span>;
+  }
+
   render() {
     const {
       hit, index, page, hitsPerPage,
@@ -42,12 +57,7 @@ class SearchEntry extends Component {
             </p>
             )}
             <p className="entry-meta">
-              {type === 'service' && (
-                <span>{hit.addresses && hit.addresses.address_1 ? hit.addresses.address_1 : 'No address found'}</span>
-              )}
-              {type === 'resource' && (
-                <span>{hit.address && hit.address.address_1 ? hit.address.address_1 : 'No address found'}</span>
-              )}
+              {this.renderAddressMetadata()}
               {recurringSchedule
                   && (
                     <span className="entry-schedule">

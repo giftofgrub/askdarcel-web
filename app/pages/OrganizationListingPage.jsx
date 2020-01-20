@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Helmet } from 'react-helmet-async';
@@ -24,16 +25,16 @@ import Loader from 'components/ui/Loader';
 import * as dataService from '../utils/DataService';
 import { getSiteTitle } from '../utils/whitelabel';
 
-const getResourceLocation = resource => {
-  const { address } = resource;
-  if (!address) return null;
+const getResourceLocations = resource => {
+  const { addresses } = resource;
+  if (!addresses || !addresses.length) return null;
 
-  return {
+  return addresses.map(address => ({
     id: address.id,
     address,
     name: resource.name,
     recurringSchedule: resource.recurringSchedule,
-  };
+  }));
 };
 
 class BaseOrganizationListingPage extends React.Component {
@@ -78,12 +79,17 @@ class BaseOrganizationListingPage extends React.Component {
 
   render() {
     const { resource } = this.state;
+
+    // Use getter here because resource is undefined on first render because componentDidMount runs
+    // after it (https://reactjs.org/docs/react-component.html#the-component-lifecycle)
+    const addresses = _.get(resource, 'addresses', []);
+
     if (!resource || !window.google) {
       return <Loader />;
     }
 
     const { notes } = resource;
-    const resourceLocation = getResourceLocation(resource);
+    const resourceLocations = getResourceLocations(resource);
     return (
       <div>
         <Helmet>
@@ -138,7 +144,9 @@ class BaseOrganizationListingPage extends React.Component {
                     <div className="info--column">
                       {resource.categories.length > 0
                         && <ResourceCategories categories={resource.categories} />}
-                      {resource.address && <AddressInfo address={resource.address} />}
+                      {addresses.map(address => (
+                        <AddressInfo address={address} key={address.id} />
+                      ))}
                       {resource.phones.length > 0 && <PhoneNumber phones={resource.phones} />}
                       {resource.website && <Website website={resource.website} />}
                       {resource.email && <Email email={resource.email} />}
@@ -146,13 +154,13 @@ class BaseOrganizationListingPage extends React.Component {
                   </ul>
                 </section>
 
-                {resourceLocation && (
+                {resourceLocations && (
                   <section className="location--section">
                     <header className="service--section--header">
                       <h4>Location</h4>
                     </header>
                     <MapOfLocations
-                      locations={[resourceLocation]}
+                      locations={resourceLocations}
                       locationRenderer={location => (
                         <TableOfOpeningTimes
                           recurringSchedule={location.recurringSchedule}
