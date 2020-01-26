@@ -1,14 +1,12 @@
 module.exports = {
   extends: [
     'airbnb',
-    'plugin:testcafe/recommended',
   ],
   parser: 'babel-eslint',
   plugins: [
     'react',
     'jsx-a11y',
     'import',
-    'testcafe',
   ],
   env: {
     browser: true,
@@ -37,36 +35,9 @@ module.exports = {
     'react/prop-types': 'off',
   },
   overrides: [
-    // Mocha Tests
-    {
-      files: ['**/*.spec.js*', 'testing/mocha.js'],
-      env: { mocha: true },
-      rules: {
-        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-        // This file is an entrypoints, so it does not require exports.
-        'import/no-unused-modules': 'off',
-        // Chai assertions may appear like unused expressions
-        'no-unused-expressions': 'off',
-      },
-    },
-    // TestCafe
-    {
-      files: ['testcafe/**'],
-      rules: {
-        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-        // TestCafe uses tagged template literals for DSL reasons, so they are
-        // expressions that actually have a stateful effect. This is
-        // specifically used in the `fixture` syntax.
-        'no-unused-expressions': ['error', { allowTaggedTemplates: true }],
-        // The TestCafe test files are entrypoints, so they do not require
-        // exports.
-        'import/no-unused-modules': 'off',
-      },
-    },
     // Node.js scripts
     {
       files: [
-        'tools/**',
         'webpack.config.js',
       ],
       rules: {
